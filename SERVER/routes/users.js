@@ -30,10 +30,10 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
 	const { username, password } = req.body;
 
-	if (!username)
-		return res.status(200).json({ message: 'You need to a username' });
+	if (!username) return res.sendStatus(400);
+	// return res.status(401).json({ message: 'You need to a username' });
 	if (!password)
-		return res.status(200).json({ message: 'You need to a password' });
+		return res.status(400).json({ message: 'You need to a password' });
 	try {
 		const foundUser = await UserModel.findOne({ username: username }).exec();
 		if (!foundUser)
@@ -45,11 +45,13 @@ router.post('/login', async (req, res) => {
 
 		if (!isMatch) return res.status(400).json({ message: 'Wrong password' });
 
-		res
-			.status(201)
-			.json({ message: `You successfully login your account.${username}` });
+		const accessToken = jwt.sign({ id: foundUser._id }, 'secret');
+		res.status(201).json({
+			message: `You successfully login your account. ${username}`,
+			accessToken: accessToken,
+		});
 	} catch (err) {
-		res.status(401).json({ message: err.message });
+		res.status(400).json({ message: err.message });
 	}
 });
 export { router as userRouter };
