@@ -1,11 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { BiHeart, BiHeartCircle } from 'react-icons/bi';
-import { BsHeartbreak } from 'react-icons/bs';
-import { FaHeartCircleXmark } from 'react-icons/fa6';
-import { GrFavorite } from 'react-icons/gr';
 import { HiHeart } from 'react-icons/hi';
-import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 
 export type RecipeType = {
