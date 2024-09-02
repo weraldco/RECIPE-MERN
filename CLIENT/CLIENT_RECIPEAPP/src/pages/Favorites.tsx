@@ -4,38 +4,29 @@ import { useCookies } from 'react-cookie';
 import RecipeItem from '../components/RecipeItem';
 import { RecipeType, UserdataT } from '../method/createRecipeErrorHandler';
 
-export const AllRecipes = () => {
-	const [userdata, setUserdata] = useState<UserdataT>();
+const Favorites = () => {
 	const [recipes, setRecipes] = useState<RecipeType[]>([]);
+	const [userdata, setUserdata] = useState<UserdataT>();
+
 	const [cookies] = useCookies(['username']);
-
-	const getResponse = async () => {
-		try {
-			const response = await axios.get('http://localhost:3001/recipes/all');
-			if (response.status === 200) setRecipes(response.data);
-		} catch (err) {
-			console.error(err);
-		}
-	};
-
-	useEffect(() => {
-		getResponse();
-	}, []);
-
 	const getFavorite = async () => {
 		try {
 			const userName = await cookies.username;
-			const response = await axios.post('http://localhost:3001/auth/getuser', {
-				username: userName,
-			});
-			setUserdata(response.data.foundUser);
+			const response = await axios.post(
+				'http://localhost:3001/recipes/userfavorites',
+				{
+					username: userName,
+				}
+			);
+			setRecipes(response.data?.userFavorites);
+			setUserdata(response.data?.foundUser);
 		} catch (err) {
 			console.error(err);
 		}
 	};
 	useEffect(() => {
 		getFavorite();
-	}, [cookies]);
+	}, []);
 
 	return (
 		<>
@@ -55,3 +46,5 @@ export const AllRecipes = () => {
 		</>
 	);
 };
+
+export default Favorites;

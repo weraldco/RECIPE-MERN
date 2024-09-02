@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import { AllRecipes } from './pages/AllRecipes';
 import { CreateRecipe } from './pages/CreateRecipe';
-import { Home } from './pages/Home';
+import Favorites from './pages/Favorites';
 import Login from './pages/Login';
 import NotFoundPage from './pages/NotFoundPage';
 import Recipe from './pages/Recipe';
@@ -16,9 +16,12 @@ function App() {
 		<>
 			<Navbar />
 			<Routes>
-				<Route path="/" element={<Home />} />
+				<Route path="/" element={<AllRecipes />} />
 				{cookies.access_token !== '' && (
-					<Route path="/create-recipe" element={<CreateRecipe />} />
+					<>
+						<Route path="/my-favorite" element={<Favorites />} />
+						<Route path="/create-recipe" element={<CreateRecipe />} />
+					</>
 				)}
 				<Route path="/all-recipe" element={<AllRecipes />} />
 				<Route path="/recipe/:id" element={<Recipe />} />

@@ -3,10 +3,11 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
 	const navigate = useNavigate();
-	const [cookies, setCookies] = useCookies(['access_token']);
+	const [cookies, setCookies] = useCookies(['access_token', 'username']);
 
 	const handleLogout = () => {
 		setCookies('access_token', '');
+		setCookies('username', '');
 		window.localStorage.removeItem('userID');
 		navigate('/');
 	};
@@ -30,12 +31,14 @@ const Navbar = () => {
 						>
 							Home
 						</Link>
-						<Link
-							className="hover:bg-slate-200 active:bg-slate-300 rounded-full text-center items-center p-2 transition-all"
-							to="/"
-						>
-							Favorites
-						</Link>
+						{cookies.access_token && (
+							<Link
+								className="hover:bg-slate-200 active:bg-slate-300 rounded-full text-center items-center p-2 transition-all"
+								to="/my-favorite"
+							>
+								Favorites
+							</Link>
+						)}
 					</div>
 				</div>
 

@@ -1,5 +1,6 @@
 import express from 'express';
 import { RecipeModel } from '../model/Recipe.js';
+import { UserModel } from '../model/User.js';
 
 const router = express.Router();
 
@@ -60,6 +61,41 @@ router.get('/:id', async (req, res) => {
 	} catch (err) {
 		console.error(err);
 	}
+});
+
+router.put('/addfavorite', async (req, res) => {
+	const { username, id } = req.body;
+	console.log(req);
+	const foundUser = await UserModel.findOne({ username: username });
+
+	const cpyFavorite = [...foundUser.favorite_recipes, id];
+	foundUser.favorite_recipes = cpyFavorite;
+
+	const result = await foundUser.save();
+	console.log(result);
+	res.status(200).json({ foundUser });
+});
+
+router.delete('/removefavorite', async (req, res) => {
+	const { username, id } = req.body;
+	const foundUser = await UserModel.findOne({ username }).exec();
+	const cpyFavorite = [...foundUser.favorite_recipes];
+	foundUser.favorite_recipes = cpyFavorite.filter((i) => i != id);
+
+	const result = await foundUser.save();
+	res.status(200).json({ foundUser });
+});
+
+router.post('/userfavorites', async (req, res) => {
+	const { username } = req.body;
+	const foundUser = await UserModel.findOne({ username: username }).exec();
+	const recipe = await RecipeModel.find({}).exec();
+
+	const userFavorites = recipe.filter((recipe) =>
+		foundUser.favorite_recipes.includes(recipe._id)
+	);
+	console.log(userFavorites);
+	res.status(200).json({ userFavorites, foundUser });
 });
 
 export { router as recipeRouter };

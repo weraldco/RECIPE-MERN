@@ -59,4 +59,12 @@ router.post('/login', async (req, res) => {
 		res.status(400).json({ message: err.message });
 	}
 });
+
+router.post('/getuser', async (req, res) => {
+	const { username } = req.body;
+	const foundUser = await UserModel.findOne({ username: username });
+
+	res.status(200).json({ foundUser });
+});
+
 export { router as userRouter };
