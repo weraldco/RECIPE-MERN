@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { useCookies } from 'react-cookie';
 
 export const CreateRecipe = () => {
 	const [recipeName, setRecipeName] = useState<string>('');
@@ -10,6 +11,8 @@ export const CreateRecipe = () => {
 	const [instructionsList, setInstructionsList] = useState(
 		new Array(1).fill('')
 	);
+	const [cookies] = useCookies<string>(['username']);
+	const recipeAuthor = cookies.username;
 	const [success, setSuccess] = useState<string>('');
 	const [error, setError] = useState<string>('');
 	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -28,6 +31,7 @@ export const CreateRecipe = () => {
 					recipeCookingTime,
 					ingridientsList,
 					instructionsList,
+					recipeAuthor,
 				}
 			);
 			if (response.status === 200) {

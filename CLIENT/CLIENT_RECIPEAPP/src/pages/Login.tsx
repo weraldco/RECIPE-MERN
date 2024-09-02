@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const Login = () => {
 	const [username, setUsername] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
-	const [_, setCookies] = useCookies(['access_token']);
+	const [_, setCookies] = useCookies(['access_token', 'username']);
 	const navigate = useNavigate();
 	const [success, setSuccess] = useState<string>();
 	const [error, setError] = useState<string>();
@@ -23,6 +23,8 @@ const Login = () => {
 			if (response.status === 202) return setError(response.data.message);
 			setError('');
 			setCookies('access_token', response.data.accessToken);
+			setCookies('username', username);
+
 			setSuccess(response.data.message);
 			window.localStorage.setItem('userID', response.data.userID);
 			navigate('/');
