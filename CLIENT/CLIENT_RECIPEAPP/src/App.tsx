@@ -14,21 +14,25 @@ function App() {
 	console.log(cookies);
 	return (
 		<>
-			<Navbar />
-			<Routes>
-				<Route path="/" element={<AllRecipes />} />
-				{cookies.access_token !== '' && (
-					<>
-						<Route path="/my-favorite" element={<Favorites />} />
-						<Route path="/create-recipe" element={<CreateRecipe />} />
-					</>
-				)}
-				<Route path="/all-recipe" element={<AllRecipes />} />
-				<Route path="/recipe/:id" element={<Recipe />} />
-				<Route path="/registration" element={<Registration />} />
-				<Route path="/login" element={<Login />} />
-				<Route path="*" element={<NotFoundPage />} />
-			</Routes>
+			<div className="flex items-center justify-center">
+				<div className="xl:w-[1280px] w-full h-screen bg-slate-50">
+					<Navbar />
+					<Routes>
+						<Route path="/" element={<AllRecipes />} />
+						{cookies.access_token !== '' && (
+							<>
+								<Route path="/my-favorite" element={<Favorites />} />
+								<Route path="/create-recipe" element={<CreateRecipe />} />
+							</>
+						)}
+						<Route path="/all-recipe" element={<AllRecipes />} />
+						<Route path="/recipe/:id" element={<Recipe />} />
+						<Route path="/registration" element={<Registration />} />
+						<Route path="/login" element={<Login />} />
+						<Route path="*" element={<NotFoundPage />} />
+					</Routes>
+				</div>
+			</div>
 		</>
 	);
 }
