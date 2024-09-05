@@ -42,7 +42,7 @@ const RecipeItem = ({ recipe, userdata }: RecipeItemProps) => {
 
 	return (
 		<>
-			<div className="grid w-[400px]">
+			<div className="grid w-[400px] hover:scale-[1.1]">
 				<div className="relative">
 					{cookies?.username && (
 						<div>

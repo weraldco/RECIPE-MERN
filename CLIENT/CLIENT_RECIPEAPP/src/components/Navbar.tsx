@@ -77,7 +77,7 @@ const Navbar = () => {
 					<div className="flex items-center gap-5">
 						<Link
 							className="bg-blue-400 rounded-full text-white px-3 py-2 hover:bg-blue-300 transition-all"
-							to="/login"
+							to="/login`"
 						>
 							Sign in?
 						</Link>
