@@ -16,7 +16,7 @@ function App() {
 	return (
 		<>
 			<div className="flex items-center justify-center">
-				<div className="xl:w-[1280px] w-full h-screen bg-slate-50 px-10">
+				<div className="xl:w-[1280px] w-full h-screen bg-slate-50 ">
 					<Navbar />
 					<Routes>
 						<Route path="/" element={<Home />} />

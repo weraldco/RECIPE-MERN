@@ -35,9 +35,9 @@ const Navbar = () => {
 	// console.log(isMenu);
 	return (
 		<>
-			<header className="bg-white text-[0.85em] py-2 z-50">
+			<header className="bg-white text-[0.85em] py-2 ">
 				<nav className="flex justify-between items-center w-[92%] mx-auto">
-					<div className="z-index-50">
+					<div className="">
 						<Link to="/" className="flex justify-between items-center gap-2">
 							<img className="w-16" src="/img/logo.png" alt="" />
 							<div>

@@ -1,9 +1,13 @@
-import LatestRecipe from '../components/LatestRecipe';
+import RecipeList from '../components/LatestRecipe';
 
 const Home = () => {
 	return (
 		<>
-			<LatestRecipe />
+			<div className="md:px-10 xl:px-10 px-0">
+				<RecipeList label="Latest Recipes" />
+				<RecipeList label="Filipino Recipes" />
+				<RecipeList label="Indian Recipes" />
+			</div>
 		</>
 	);
 };
