@@ -1,37 +1,44 @@
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 
 export type GlobalContextT = {
-	username?: string;
-	setUsername: unknown;
-	recipesData: RecipeType[];
-	cookies: unknown;
-	setCookies: unknown;
+  username?: string;
+  setUsername: unknown;
+  recipesData: RecipeType[];
+  cookies: unknown;
+  setCookies: unknown;
+  categoryData: CategoryT[];
 };
 
 export type GlobalStateProps = {
-	children: ReactNode;
+  children: ReactNode;
 };
 
 export type RecipeType = {
-	_id: number;
-	name: string;
-	description: string;
-	img_url: string;
-	cooking_time: string;
-	ingridients: string[];
-	instructions: string[];
-	author: string;
+  _id: number;
+  name: string;
+  description: string;
+  img_url: string;
+  cooking_time: string;
+  ingridients: string[];
+  instructions: string[];
+  author: string;
 };
 type RecipeIdT = {
-	recipeId: string;
+  recipeId: string;
 };
 export type UserdataT = {
-	_id: number;
-	username: string;
-	password: string;
-	favorite_recipes: RecipeIdT[];
+  _id: number;
+  username: string;
+  password: string;
+  favorite_recipes: RecipeIdT[];
 };
 export type RecipeItemProps = {
-	recipe: RecipeType;
-	userdata?: UserdataT;
+  recipe: RecipeType;
+  userdata?: UserdataT;
+};
+
+export type CategoryT = {
+  _id: string;
+  name: string;
+  img_url: string;
 };
