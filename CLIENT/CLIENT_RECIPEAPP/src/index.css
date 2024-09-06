@@ -3,11 +3,10 @@
 @tailwind utilities;
 
 #root {
-	/* margin-top: 60px; */
+  /* margin-top: 60px; */
 
-	height: 100vh;
-	font-family: Rubik;
-	z-index: 1;
-	background-image: url('/img/i-like-food.svg');
-	background-color: whitesmoke;
+  font-family: Rubik;
+  z-index: 1;
+  background-image: url("/img/i-like-food.svg");
+  background-color: whitesmoke;
 }

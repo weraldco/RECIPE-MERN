@@ -7,7 +7,7 @@ const Category = () => {
 
   return (
     <>
-      <div className="grid h-[150px] w-full grid-flow-col items-center justify-center gap-5 overflow-x-scroll px-5 xl:w-full">
+      <div className="grid h-[150px] w-full grid-flow-col items-center justify-center gap-5 px-5 xl:w-full">
         {categoryData.map((category) => (
           <CategoryCard key={category._id} category={category} />
         ))}

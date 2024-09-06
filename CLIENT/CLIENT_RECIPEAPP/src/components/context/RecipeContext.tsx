@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
+import { useParams } from "react-router-dom";
 import {
   CategoryT,
   GlobalContextT,
@@ -11,8 +12,10 @@ import {
 export const GlobalContext = createContext<GlobalContextT>();
 
 const GlobalState = ({ children }: GlobalStateProps) => {
+  const [recipeID, setRecipeID] = useState();
   const [username, setUsername] = useState("werald");
   const [recipesData, setRecipesData] = useState<RecipeType[]>([]);
+  const [singleRecipeData, setSingleRecipeData] = useState<RecipeType>();
   const [categoryData, setCategoryData] = useState<CategoryT[]>([]);
   const [cookies, setCookies] = useCookies(["access_token", "username"]);
 
@@ -38,6 +41,23 @@ const GlobalState = ({ children }: GlobalStateProps) => {
     }
   };
 
+  const getSingleRecipe = async () => {
+    try {
+      if (recipeID !== undefined) {
+        const response = await axios.get(
+          `http://localhost:3001/recipes/${recipeID}`,
+        );
+        if (response.data.length != 0)
+          return setSingleRecipeData(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  useEffect(() => {
+    getSingleRecipe();
+  }, [recipeID]);
+
   useEffect(() => {
     getAllRecipe();
     getAllCategories();
@@ -50,6 +70,8 @@ const GlobalState = ({ children }: GlobalStateProps) => {
     cookies,
     setCookies,
     categoryData,
+    setRecipeID,
+    singleRecipeData,
   };
 
   return (

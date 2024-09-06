@@ -1,46 +1,71 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { RecipeType } from './AllRecipes';
+import { useContext, useEffect } from "react";
+import { BiTag, BiTagAlt } from "react-icons/bi";
+import { BsTag } from "react-icons/bs";
+import { FaTags } from "react-icons/fa";
+import { useParams } from "react-router-dom";
+import { GlobalContext } from "../components/context/RecipeContext";
 
 const Recipe = () => {
-	const { id } = useParams();
-	const [recipe, setRecipe] = useState<RecipeType>();
+  const { setRecipeID, singleRecipeData } = useContext(GlobalContext);
+  const { id } = useParams();
+  useEffect(() => {
+    setRecipeID(id);
+  }, []);
+  return (
+    <>
+      {singleRecipeData && (
+        <>
+          <div className="grid grid-flow-col gap-10 p-10">
+            <div className="w-[450px]">
+              <img
+                src={singleRecipeData.img_url}
+                alt=""
+                className="w-[450px] rounded-lg shadow-lg"
+              />
+            </div>
 
-	const getData = async () => {
-		try {
-			const response = await axios.get(`http://localhost:3001/recipes/${id}`);
-			if (response.data.length != 0) return setRecipe(response.data);
-		} catch (err) {
-			console.error(err);
-		}
-	};
-	useEffect(() => {
-		getData();
-	}, []);
+            <div className="grid">
+              <div className="text-3xl">
+                {singleRecipeData.name}
+                <div className="flex gap-2">
+                  <BsTag className="text-lg" />
+                  <span className="text-sm">Filipino</span>
+                </div>
+              </div>
 
-	return (
-		<>
-			{recipe && (
-				<>
-					<div className="grid place-items-center">
-						<div className="grid w-4/5 max-w-[700px]">
-							<img src={recipe?.img_url} alt="" />
-							<h2 className="text-2xl font-bold">{recipe?.name}</h2>
-
-							<p>{recipe?.description}</p>
-							<p>Cooking time: {recipe?.cooking_time}</p>
-
-							<div>
-								{recipe?.ingridients.map((item: string, index: number) => (
-									<p key={index}>{item}</p>
-								))}
-							</div>
-						</div>
-					</div>
-				</>
-			)}
-		</>
-	);
+              <div>{singleRecipeData.description}</div>
+              <div>Source: {singleRecipeData.img_url}</div>
+              <div>
+                <span className="text-[1.2em]">Ingridients</span>
+                <ul className="grid gap-3 pl-5">
+                  {singleRecipeData.ingridients.map((item, index) => (
+                    <li key={index}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <span className="text-[1.2em]">Instructions</span>
+                <ul className="grid gap-2">
+                  {singleRecipeData.instruction.map((item, index) => (
+                    <li
+                      key={index}
+                      className="grid grid-flow-col justify-start gap-2"
+                    >
+                      <div className="grid h-[35px] w-[35px] items-center justify-center rounded-full border-2">
+                        {index + 1}
+                      </div>
+                      <div className="grid items-center justify-center">
+                        {item}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+    </>
+  );
 };
 export default Recipe;

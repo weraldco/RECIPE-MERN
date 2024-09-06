@@ -7,6 +7,8 @@ export type GlobalContextT = {
   cookies: unknown;
   setCookies: unknown;
   categoryData: CategoryT[];
+  setRecipeID: unknown;
+  singleRecipeData?: RecipeType;
 };
 
 export type GlobalStateProps = {
@@ -20,7 +22,7 @@ export type RecipeType = {
   img_url: string;
   cooking_time: string;
   ingridients: string[];
-  instructions: string[];
+  instruction: string[];
   author: string;
 };
 type RecipeIdT = {
