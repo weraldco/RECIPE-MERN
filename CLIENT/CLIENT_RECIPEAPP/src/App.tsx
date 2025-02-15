@@ -12,6 +12,7 @@ import Registration from "./pages/Register";
 
 function App() {
   const [cookies] = useCookies<string>(["access_token"]);
+
   return (
     <>
       <div className="flex items-center justify-center">

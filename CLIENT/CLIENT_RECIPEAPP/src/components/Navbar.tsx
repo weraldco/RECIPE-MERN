@@ -14,6 +14,7 @@ const Navbar = () => {
     setCookies("username", "");
     window.localStorage.removeItem("userID");
     navigate("/");
+    console.log("logging out");
   };
 
   const clickNewRecipe = () => {
@@ -32,7 +33,6 @@ const Navbar = () => {
     console.log(navLinks);
   };
 
-  // console.log(isMenu);
   return (
     <>
       <header className="bg-white py-2 text-[0.85em]">
@@ -72,6 +72,7 @@ const Navbar = () => {
                 </Link>
                 {/* )} */}
               </li>
+              <li></li>
             </ul>
           </div>
           <div>
@@ -82,12 +83,32 @@ const Navbar = () => {
             />
           </div>
           <div className="flex items-center gap-5">
-            <Link
-              className="rounded-full bg-blue-400 px-3 py-2 text-white transition-all hover:bg-blue-300"
-              to="/login`"
-            >
-              Sign in?
-            </Link>
+            {cookies.access_token != "" ? (
+              <div className="hidden items-center gap-2 md:flex">
+                <div>Hi, {cookies.username}</div>
+                <button
+                  className="rounded-full bg-gray-600 px-4 py-2 text-white duration-200 hover:opacity-90"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <div className="hidden gap-2 md:flex">
+                <Link
+                  className="rounded-full bg-gray-600 px-3 py-2 text-white transition-all hover:bg-gray-500"
+                  to="/registration"
+                >
+                  Want to join?
+                </Link>
+                <Link
+                  className="rounded-full bg-blue-400 px-3 py-2 text-white transition-all hover:bg-blue-300"
+                  to="/login"
+                >
+                  Sign in
+                </Link>
+              </div>
+            )}
             {isMenu ? (
               <CgClose
                 onClick={toggleMenu}

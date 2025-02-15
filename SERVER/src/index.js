@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
@@ -6,6 +7,7 @@ import { connectDB } from '../config/dbConnection.js';
 import { categoryRouter } from '../routes/category.js';
 import { recipeRouter } from '../routes/recipe.js';
 import { userRouter } from '../routes/users.js';
+
 dotenv.config();
 const app = express();
 
