@@ -1,25 +1,30 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useCookies } from "react-cookie";
 import { BiMenu } from "react-icons/bi";
 import { CgClose } from "react-icons/cg";
 import { Link, useNavigate } from "react-router-dom";
+import { GlobalContext } from "./context/RecipeContext";
 
 const Navbar = () => {
+  const { userData } = useContext(GlobalContext);
   const navigate = useNavigate();
   const [cookies, setCookies] = useCookies(["access_token", "username"]);
   const [isMenu, setIsMenu] = useState(false);
+
+  const [isUserNav, setIsUserNav] = useState(false);
 
   const handleLogout = () => {
     setCookies("access_token", "");
     setCookies("username", "");
     window.localStorage.removeItem("userID");
     navigate("/");
-    console.log("logging out");
+    setIsUserNav(false);
   };
 
-  const clickNewRecipe = () => {
-    navigate("/create-recipe");
-  };
+  // const clickNewRecipe = () => {
+  //   navigate("/create-recipe");
+  // };
+
   const toggleMenu = () => {
     const navLinks = document.querySelector(".nav-links");
     setIsMenu((prev) => !prev);
@@ -32,10 +37,9 @@ const Navbar = () => {
     }
     console.log(navLinks);
   };
-
   return (
     <>
-      <header className="bg-white py-2 text-[0.85em]">
+      <header className="sticky top-0 z-50 bg-white py-2 text-[0.85em]">
         <nav className="mx-auto flex w-[92%] items-center justify-between">
           <div className="">
             <Link to="/" className="flex items-center justify-between gap-2">
@@ -66,11 +70,9 @@ const Navbar = () => {
                 </Link>
               </li>
               <li className="rounded-full px-3 py-2 text-center transition-all hover:bg-gray-200">
-                {/* {cookies.access_token && ( */}
                 <Link className="" to="/my-favorite">
                   Favorites
                 </Link>
-                {/* )} */}
               </li>
               <li></li>
             </ul>
@@ -83,17 +85,57 @@ const Navbar = () => {
             />
           </div>
           <div className="flex items-center gap-5">
-            {cookies.access_token != "" ? (
-              <div className="hidden items-center gap-2 md:flex">
-                <div>Hi, {cookies.username}</div>
-                <button
-                  className="rounded-full bg-gray-600 px-4 py-2 text-white duration-200 hover:opacity-90"
-                  onClick={handleLogout}
+            {cookies.access_token != "" && userData && userData.img_url ? (
+              <div>
+                <div
+                  className="flex flex-row items-center gap-2 rounded-full py-1 pl-1 pr-3 hover:bg-gray-100"
+                  onClick={() => {
+                    setIsUserNav((prev) => !prev);
+                  }}
                 >
-                  Logout
-                </button>
+                  <div className="rounded-full border-2">
+                    <img
+                      src={userData.img_url}
+                      alt=""
+                      className="w-[38px] rounded-full object-contain"
+                    />
+                  </div>
+                  <span className="text-sm">Hi, {userData.username}</span>
+                </div>
+                {isUserNav && (
+                  <div className="absolute z-50 bg-white p-2 text-sm">
+                    <ul className="flex flex-col gap-2">
+                      <li className="w-full cursor-pointer px-8 py-1 duration-200 hover:bg-gray-100">
+                        My Recipe
+                      </li>
+                      <li className="w-full cursor-pointer px-8 py-1 duration-200 hover:bg-gray-100">
+                        My Favorite
+                      </li>
+                      <Link to="/create-recipe">
+                        <li className="w-full cursor-pointer px-8 py-1 duration-200 hover:bg-gray-100">
+                          Create Recipe
+                        </li>
+                      </Link>
+                      <li
+                        className="w-full cursor-pointer px-8 py-1 duration-200 hover:bg-gray-100"
+                        onClick={handleLogout}
+                      >
+                        Logout
+                      </li>
+                    </ul>
+                  </div>
+                )}
               </div>
             ) : (
+              // <div className="hidden items-center gap-2 md:flex">
+              //   <div>Hi, {cookies.username}</div>
+              //   <button
+              //     className="rounded-full bg-gray-600 px-4 py-2 text-white duration-200 hover:opacity-90"
+              //     onClick={handleLogout}
+              //   >
+              //     Logout
+              //   </button>
+              // </div>
               <div className="hidden gap-2 md:flex">
                 <Link
                   className="rounded-full bg-gray-600 px-3 py-2 text-white transition-all hover:bg-gray-500"

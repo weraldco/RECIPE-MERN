@@ -1,7 +1,6 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { useParams } from "react-router-dom";
 import {
   CategoryT,
   GlobalContextT,
@@ -13,11 +12,26 @@ export const GlobalContext = createContext<GlobalContextT>();
 
 const GlobalState = ({ children }: GlobalStateProps) => {
   const [recipeID, setRecipeID] = useState();
-  const [username, setUsername] = useState("werald");
+  const [userData, setUserData] = useState<[]>([]);
+  const [username, setUsername] = useState<string>("");
   const [recipesData, setRecipesData] = useState<RecipeType[]>([]);
   const [singleRecipeData, setSingleRecipeData] = useState<RecipeType>();
   const [categoryData, setCategoryData] = useState<CategoryT[]>([]);
   const [cookies, setCookies] = useCookies(["access_token", "username"]);
+
+  const getUserData = async (username: string) => {
+    try {
+      const res = await axios.get(
+        `http://localhost:3001/auth/getuser?username=${username}`,
+      );
+
+      if (res.status === 200) {
+        setUserData(res.data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const getAllRecipe = async () => {
     try {
@@ -63,7 +77,12 @@ const GlobalState = ({ children }: GlobalStateProps) => {
     getAllCategories();
   }, []);
 
+  useEffect(() => {
+    getUserData(cookies.username);
+  }, [cookies]);
+
   const defaultValue = {
+    userData,
     recipesData,
     username,
     setUsername,

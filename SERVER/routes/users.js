@@ -60,11 +60,14 @@ router.post('/login', async (req, res) => {
 	}
 });
 
-router.post('/getuser', async (req, res) => {
-	const { username } = req.body;
-	const foundUser = await UserModel.findOne({ username: username });
-
-	res.status(200).json({ foundUser });
+router.get('/getuser', async (req, res) => {
+	try {
+		const { username } = req.query;
+		const user = await UserModel.findOne({ username }).exec();
+		res.status(200).json(user);
+	} catch (error) {
+		console.error(error);
+	}
 });
 
 export { router as userRouter };
