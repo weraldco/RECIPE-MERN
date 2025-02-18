@@ -88,7 +88,7 @@ const Navbar = () => {
             {cookies.access_token != "" && userData && userData.img_url ? (
               <div>
                 <div
-                  className="flex flex-row items-center gap-2 rounded-full py-1 pl-1 pr-3 hover:bg-gray-100"
+                  className="flex cursor-pointer flex-row items-center gap-2 rounded-full py-1 pl-1 pr-3 hover:bg-gray-100"
                   onClick={() => {
                     setIsUserNav((prev) => !prev);
                   }}
@@ -105,14 +105,23 @@ const Navbar = () => {
                 {isUserNav && (
                   <div className="absolute z-50 bg-white p-2 text-sm">
                     <ul className="flex flex-col gap-2">
-                      <li className="w-full cursor-pointer px-8 py-1 duration-200 hover:bg-gray-100">
+                      <li
+                        className="w-full cursor-pointer px-8 py-1 duration-200 hover:bg-gray-100"
+                        onClick={() => setIsUserNav((prev) => !prev)}
+                      >
                         My Recipe
                       </li>
-                      <li className="w-full cursor-pointer px-8 py-1 duration-200 hover:bg-gray-100">
+                      <li
+                        className="w-full cursor-pointer px-8 py-1 duration-200 hover:bg-gray-100"
+                        onClick={() => setIsUserNav((prev) => !prev)}
+                      >
                         My Favorite
                       </li>
                       <Link to="/create-recipe">
-                        <li className="w-full cursor-pointer px-8 py-1 duration-200 hover:bg-gray-100">
+                        <li
+                          className="w-full cursor-pointer px-8 py-1 duration-200 hover:bg-gray-100"
+                          onClick={() => setIsUserNav((prev) => !prev)}
+                        >
                           Create Recipe
                         </li>
                       </Link>

@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import { CategoryT } from "../method/types";
 import { GlobalContext } from "./context/RecipeContext";
 
@@ -24,16 +25,18 @@ type CategoryCardProps = {
 const CategoryCard = ({ category }: CategoryCardProps) => {
   return (
     <>
-      <div className="grid cursor-pointer gap-2 text-center text-sm transition-all hover:scale-110">
-        <div>
-          <img
-            src={category.img_url}
-            alt=""
-            className="grid h-[90px] w-[190px] rounded-lg shadow-md"
-          />
+      <Link to={`category=${category.name}`}>
+        <div className="grid cursor-pointer gap-2 text-center text-sm transition-all hover:scale-110">
+          <div>
+            <img
+              src={category.img_url}
+              alt=""
+              className="grid h-[90px] w-[190px] rounded-lg shadow-md"
+            />
+          </div>
+          {category.name}
         </div>
-        {category.name}
-      </div>
+      </Link>
     </>
   );
 };

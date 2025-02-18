@@ -9,6 +9,7 @@ export type GlobalContextT = {
   categoryData: CategoryT[];
   setRecipeID: unknown;
   singleRecipeData?: RecipeType;
+  getRecipeByQuery: (query: string) => RecipeType[];
 };
 
 export type GlobalStateProps = {

@@ -1,5 +1,5 @@
 import Category from "../components/Category";
-import RecipeList from "../components/LatestRecipe";
+import Recipes from "../components/Recipes";
 
 const Home = () => {
   return (
@@ -33,9 +33,10 @@ const Home = () => {
           />
         </div>
         <Category />
-        <RecipeList label="Latest Recipes" />
-        <RecipeList label="Filipino Recipes" />
-        <RecipeList label="Indian Recipes" />
+        <Recipes label={"Latest Recipes"} query="category='filipino'" />
+        <Recipes label={"Filipino Recipes"} query="category='filipino'" />
+        <Recipes label={"Indian Recipe"} query="category='filipino'" />
+        <Recipes label={"Thai Recipes"} query="category='filipino'" />
       </div>
     </>
   );

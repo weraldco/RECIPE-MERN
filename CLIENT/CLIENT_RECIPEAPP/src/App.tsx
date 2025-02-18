@@ -29,6 +29,7 @@ function App() {
             <Route path="/all-recipe" element={<AllRecipes />} />
             <Route path="/recipes/:id" element={<Recipe />} />
             <Route path="/registration" element={<Registration />} />
+
             <Route path="/login" element={<Login />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

@@ -18,6 +18,7 @@ const GlobalState = ({ children }: GlobalStateProps) => {
   const [singleRecipeData, setSingleRecipeData] = useState<RecipeType>();
   const [categoryData, setCategoryData] = useState<CategoryT[]>([]);
   const [cookies, setCookies] = useCookies(["access_token", "username"]);
+  const [query, setQuery] = useState<string>("");
 
   const getUserData = async (username: string) => {
     try {
@@ -52,6 +53,18 @@ const GlobalState = ({ children }: GlobalStateProps) => {
       }
     } catch (err) {
       console.error(err);
+    }
+  };
+
+  const getRecipeByQuery = async (query: string) => {
+    try {
+      const res = await axios.get(
+        `http://localhost:3001/recipes/query?${query}`,
+      );
+
+      return res.data;
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -91,6 +104,8 @@ const GlobalState = ({ children }: GlobalStateProps) => {
     categoryData,
     setRecipeID,
     singleRecipeData,
+    setQuery,
+    getRecipeByQuery,
   };
 
   return (
