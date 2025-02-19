@@ -7,7 +7,7 @@ const RecipeSchema = new Schema({
 	instruction: [{ type: String, required: true }],
 	img_url: { type: String, required: true },
 	cooking_time: { type: String, required: true },
-	author: { type: String },
+	author: { type: String, required: true },
 });
 
 export const RecipeModel = mongoose.model('recipes', RecipeSchema);

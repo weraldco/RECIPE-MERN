@@ -2,6 +2,7 @@ import { useCookies } from "react-cookie";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import { AllRecipes } from "./pages/AllRecipes";
+import Category from "./pages/Category";
 import { CreateRecipe } from "./pages/CreateRecipe";
 import Favorites from "./pages/Favorites";
 import Home from "./pages/Home";
@@ -29,6 +30,7 @@ function App() {
             <Route path="/all-recipe" element={<AllRecipes />} />
             <Route path="/recipes/:id" element={<Recipe />} />
             <Route path="/registration" element={<Registration />} />
+            <Route path="/recipes/category/:category" element={<Category />} />
 
             <Route path="/login" element={<Login />} />
             <Route path="*" element={<NotFoundPage />} />
