@@ -1,18 +1,18 @@
-import { FC, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { GlobalContext } from "../components/context/RecipeContext";
+import RecipeCard from "../components/RecipeCard";
 import { RecipeType } from "../method/types";
 
 const Category = () => {
   const { category } = useParams<{ category: string | undefined }>();
 
   const [recipesData, setRecipesData] = useState<RecipeType[]>([]);
-  const { getRecipeByQuery } = useContext(GlobalContext);
+  const { getRecipeByCategory } = useContext(GlobalContext);
+
   const getData = async () => {
     try {
-      const data = await getRecipeByQuery(`category='${category}'`);
-      // const data = await getRecipeByQuery("category='filipino'");
-
+      const data = await getRecipeByCategory(category as string);
       setRecipesData(data.splice(0, 6));
     } catch (error) {
       console.error(error);
@@ -35,9 +35,19 @@ const Category = () => {
   return (
     <>
       <div>
+        {}
         <h1 className="text-3xl">
           All {makeFirstLetterCapital(category)} Recipes
         </h1>
+        {recipesData && recipesData.length > 0 ? (
+          <div className="flex justify-between">
+            {recipesData.map((recipe, i) => (
+              <RecipeCard key={i} recipe={recipe} />
+            ))}
+          </div>
+        ) : (
+          <div>No recipes available for this category</div>
+        )}
       </div>
     </>
   );

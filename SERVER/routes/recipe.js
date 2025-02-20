@@ -15,11 +15,24 @@ router.get('/all', async (req, res) => {
 
 router.get('/query', async (req, res) => {
 	try {
-		const { query } = req.query;
-		const recipes = await RecipeModel.find({ query }).exec();
+		const { sortBy, query } = req.query;
+		console.log(query);
+
+		const recipes = await RecipeModel.find(strQuery).exec();
+		console.log(recipes);
 		res.status(200).json(recipes);
 	} catch (error) {
 		console.error(error);
+	}
+});
+
+router.get('/category', async (req, res) => {
+	try {
+		const { query } = req.query;
+		const recipes = await RecipeModel.find({ category: query }).exec();
+		res.status(200).json(recipes);
+	} catch (error) {
+		console.log(error);
 	}
 });
 

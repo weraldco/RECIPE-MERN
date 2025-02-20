@@ -56,10 +56,22 @@ const GlobalState = ({ children }: GlobalStateProps) => {
     }
   };
 
-  const getRecipeByQuery = async (query: string) => {
+  const getRecipeByUser = async (username: string) => {
     try {
       const res = await axios.get(
-        `http://localhost:3001/recipes/query?${query}`,
+        `http://localhost:3001/recipes/query?username=${username}`,
+      );
+
+      return res.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getRecipeByCategory = async (category: string | undefined) => {
+    try {
+      const res = await axios.get(
+        `http://localhost:3001/recipes/category?query=${category}`,
       );
 
       return res.data;
@@ -105,7 +117,8 @@ const GlobalState = ({ children }: GlobalStateProps) => {
     setRecipeID,
     singleRecipeData,
     setQuery,
-    getRecipeByQuery,
+    getRecipeByUser,
+    getRecipeByCategory,
   };
 
   return (

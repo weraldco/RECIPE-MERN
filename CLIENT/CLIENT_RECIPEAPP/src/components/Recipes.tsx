@@ -8,11 +8,11 @@ type RecipesProps = {
 };
 const Recipes = ({ label, query }: RecipesProps) => {
   const [recipesData, setRecipesData] = useState<RecipeType[]>([]);
-  const { getRecipeByQuery } = useContext(GlobalContext);
+  const { getRecipeByCategory } = useContext(GlobalContext);
   const getData = async () => {
     try {
-      const data = await getRecipeByQuery(query);
-      // const data = await getRecipeByQuery("category='filipino'");
+      console.log(query);
+      const data = await getRecipeByCategory(query);
 
       setRecipesData(data.splice(0, 6));
     } catch (error) {

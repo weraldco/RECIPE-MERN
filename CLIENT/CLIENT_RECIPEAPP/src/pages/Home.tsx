@@ -33,10 +33,10 @@ const Home = () => {
           />
         </div>
         <Category />
-        <Recipes label={"Latest Recipes"} query="category='filipino'" />
-        <Recipes label={"Filipino Recipes"} query="category='filipino'" />
-        <Recipes label={"Indian Recipe"} query="category='filipino'" />
-        <Recipes label={"Thai Recipes"} query="category='filipino'" />
+        <Recipes label={"Latest Recipes"} query="filipino" />
+        <Recipes label={"Filipino Recipes"} query="filipino" />
+        <Recipes label={"Indian Recipe"} query="filipino" />
+        <Recipes label={"Thai Recipes"} query="filipino" />
       </div>
     </>
   );
