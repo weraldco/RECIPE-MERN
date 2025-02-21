@@ -36,19 +36,6 @@ router.get('/category', async (req, res) => {
 	}
 });
 
-// router.get('/five-recipes', async (req, res) => {
-// 	try {
-// 		const recipes = await RecipeModel.find({}).limit(5).exec();
-// 		if (recipes) {
-// 			res.status(200).json(recipes);
-// 		} else {
-// 			res.status(400).json({ message: 'cannot process data' });
-// 		}
-// 	} catch (error) {
-// 		console.error(error);
-// 	}
-// });
-
 router.post('/create', async (req, res) => {
 	try {
 		const {
