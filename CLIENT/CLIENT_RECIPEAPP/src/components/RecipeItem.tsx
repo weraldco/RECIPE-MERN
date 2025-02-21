@@ -19,7 +19,7 @@ const RecipeItem = ({ recipe, userdata }: RecipeItemProps) => {
   const [isFave, setFave] = useState(
     () => userdata && userdata?.favorite_recipes.includes(_id),
   );
-  s;
+
   const handleAddFavorite = async () => {
     await axios.put("http://localhost:3001/recipes/addfavorite", {
       username: userName,

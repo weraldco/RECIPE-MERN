@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ReactNode } from "react";
 
 export type GlobalContextT = {
@@ -11,6 +12,8 @@ export type GlobalContextT = {
   singleRecipeData?: RecipeType;
   getRecipeByQuery: (query: string) => RecipeType[];
   getRecipeByCategory: (category: string) => RecipeType[];
+  getSingleRecipe: (id: string) => RecipeType;
+  getAllUserData: (username: string) => UserdataT;
 };
 
 export type GlobalStateProps = {
@@ -39,7 +42,7 @@ export type UserdataT = {
   _id: number;
   username: string;
   password: string;
-  favorite_recipes: RecipeIdT[];
+  favorite_recipes: string[];
 };
 export type RecipeItemProps = {
   recipe: RecipeType;

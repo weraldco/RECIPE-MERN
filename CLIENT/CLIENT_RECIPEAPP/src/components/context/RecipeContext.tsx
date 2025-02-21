@@ -34,6 +34,20 @@ const GlobalState = ({ children }: GlobalStateProps) => {
     }
   };
 
+  const getAllUserData = async (username: string) => {
+    try {
+      const res = await axios.get(
+        `http://localhost:3001/auth/getuser?username=${username}`,
+      );
+
+      if (res.status === 200) {
+        return res.data;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const getAllRecipe = async () => {
     try {
       const response = await axios.get("http://localhost:3001/recipes/all");
@@ -118,6 +132,7 @@ const GlobalState = ({ children }: GlobalStateProps) => {
     getRecipeByUser,
     getRecipeByCategory,
     getSingleRecipe,
+    getAllUserData,
   };
 
   return (
