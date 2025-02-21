@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { GlobalContext } from "../components/context/RecipeContext";
 import RecipeCard from "../components/RecipeCard";
+import { makeFirstLetterCapital } from "../lib/lib";
 import { RecipeType } from "../method/types";
 
 const Category = () => {
@@ -22,15 +23,6 @@ const Category = () => {
   useEffect(() => {
     getData();
   }, []);
-
-  const makeFirstLetterCapital = (label: string | undefined) => {
-    if (label) {
-      const chars = label.split("");
-      const firstLetter = chars[0].toUpperCase();
-      chars[0] = firstLetter;
-      return chars.join("");
-    }
-  };
 
   return (
     <>

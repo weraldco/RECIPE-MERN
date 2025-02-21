@@ -1,31 +1,50 @@
-import { useContext, useEffect } from "react";
-import { BiTag, BiTagAlt } from "react-icons/bi";
-import { BsTag } from "react-icons/bs";
-import { FaTags } from "react-icons/fa";
-import { Link, useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../components/context/RecipeContext";
+import { makeFirstLetterCapital } from "../lib/lib";
 
 const Recipe = () => {
-  const { setRecipeID, singleRecipeData } = useContext(GlobalContext);
-  const { id } = useParams();
-  useEffect(() => {
-    setRecipeID(id);
-  }, []);
+  const { cookies, getSingleRecipe } = useContext(GlobalContext);
 
+  const [recipeData, setRecipeData] = useState<[]>([]);
+  const { id } = useParams();
+
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  console.log("recipe id: " + { id });
+  console.log(cookies);
+  console.log(isFavorite);
+  console.log(getSingleRecipe(id));
   return (
-    <>
-      {singleRecipeData && (
-        <div className="flex h-screen w-full flex-col items-center justify-between gap-4 p-4 md:flex-row md:items-start">
+    <div>
+      {/* {singleRecipeData ? (
+        <div className="flex h-full w-full flex-col items-center justify-between gap-4 p-4 md:flex-row md:items-start">
           <div className="w-[500px] md:w-full">
             <img src={singleRecipeData.img_url} alt="" />
           </div>
 
           <div className="flex w-full flex-col gap-2">
             <div>
+              {cookies.username && (
+                <div>
+                  {isFave ? (
+                    <HiHeart
+                      className="absolute right-1 top-1 text-4xl text-red-400 hover:text-gray-200 active:text-white"
+                      onClick={handleRemoveFavorite}
+                    />
+                  ) : (
+                    <HiHeart
+                      className="absolute right-1 top-1 text-4xl text-white hover:text-red-400 active:text-red-300"
+                      onClick={handleAddFavorite}
+                    />
+                  )}
+                </div>
+              )}
+            </div>
+            <div>
               <div className="text-3xl">{singleRecipeData.name}</div>
               <div className="flex gap-2 text-sm">
                 <BsTag />
-                <span>Filipino</span>
+                <span>{makeFirstLetterCapital(singleRecipeData.category)}</span>
               </div>
             </div>
 
@@ -48,7 +67,7 @@ const Recipe = () => {
               <span className="text-2xl">Instructions</span>
               <ul className="flex flex-col gap-5 pl-5">
                 {singleRecipeData.instruction.map((item, index) => (
-                  <li key={index} className="flex items-center gap-2">
+                  <li key={index} className="flex items-start gap-2">
                     <div className="rounded-full border-2 px-3 py-1">
                       {index + 1}
                     </div>
@@ -59,58 +78,10 @@ const Recipe = () => {
             </div>
           </div>
         </div>
-      )}
-      {/* {singleRecipeData && (
-        <div className="grid grid-flow-col gap-10 p-10">
-          <div className="w-[450px]">
-            <img
-              src={singleRecipeData.img_url}
-              alt=""
-              className="w-[450px] rounded-lg shadow-lg"
-            />
-          </div>
-
-          <div className="grid bg-blue-50">
-            <div className="text-3xl">
-              {singleRecipeData.name}
-              <div className="flex gap-2">
-                <BsTag className="text-lg" />
-                <span className="text-sm">Filipino</span>
-              </div>
-            </div>
-
-            <div>{singleRecipeData.description}</div>
-            <div>Source: {singleRecipeData.img_url}</div>
-            <div>
-              <span className="text-[1.2em]">Ingridients</span>
-              <ul className="grid gap-3 pl-5">
-                {singleRecipeData.ingridients.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <span className="text-[1.2em]">Instructions</span>
-              <ul className="grid gap-2">
-                {singleRecipeData.instruction.map((item, index) => (
-                  <li
-                    key={index}
-                    className="grid grid-flow-col justify-start gap-2"
-                  >
-                    <div className="grid h-[35px] w-[35px] items-center justify-center rounded-full border-2">
-                      {index + 1}
-                    </div>
-                    <div className="grid items-center justify-center">
-                      {item}
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
+      ) : (
+        <div> No data found..</div>
       )} */}
-    </>
+    </div>
   );
 };
 export default Recipe;

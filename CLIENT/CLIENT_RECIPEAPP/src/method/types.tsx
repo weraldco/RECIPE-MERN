@@ -4,10 +4,10 @@ export type GlobalContextT = {
   username?: string;
   setUsername: unknown;
   recipesData: RecipeType[];
-  cookies: unknown;
+  cookies: CookiesType;
   setCookies: unknown;
   categoryData: CategoryT[];
-  setRecipeID: unknown;
+  setRecipeID: (id: string | undefined) => void;
   singleRecipeData?: RecipeType;
   getRecipeByQuery: (query: string) => RecipeType[];
   getRecipeByCategory: (category: string) => RecipeType[];
@@ -17,6 +17,10 @@ export type GlobalStateProps = {
   children: ReactNode;
 };
 
+export type CookiesType = {
+  access_token?: string;
+  username?: string;
+};
 export type RecipeType = {
   _id: number;
   name: string;
@@ -26,6 +30,7 @@ export type RecipeType = {
   ingridients: string[];
   instruction: string[];
   author: string;
+  category: string;
 };
 type RecipeIdT = {
   recipeId: string;

@@ -80,22 +80,20 @@ const GlobalState = ({ children }: GlobalStateProps) => {
     }
   };
 
-  const getSingleRecipe = async () => {
+  const getSingleRecipe = async (id: string) => {
     try {
-      if (recipeID !== undefined) {
-        const response = await axios.get(
-          `http://localhost:3001/recipes/${recipeID}`,
-        );
-        if (response.data.length != 0)
-          return setSingleRecipeData(response.data);
+      if (id !== undefined) {
+        const response = await axios.get(`http://localhost:3001/recipes/${id}`);
+        if (response.data.length != 0) return response.data;
       }
     } catch (err) {
       console.error(err);
     }
   };
-  useEffect(() => {
-    getSingleRecipe();
-  }, [recipeID]);
+
+  // useEffect(() => {
+  //   getSingleRecipe();
+  // }, [recipeID]);
 
   useEffect(() => {
     getAllRecipe();
@@ -119,6 +117,7 @@ const GlobalState = ({ children }: GlobalStateProps) => {
     setQuery,
     getRecipeByUser,
     getRecipeByCategory,
+    getSingleRecipe,
   };
 
   return (
