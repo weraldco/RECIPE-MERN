@@ -2,7 +2,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { BsTag } from "react-icons/bs";
 import { HiHeart } from "react-icons/hi";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { GlobalContext } from "../components/context/RecipeContext";
 import { makeFirstLetterCapital } from "../lib/lib";
 import { RecipeType, UserdataT } from "../method/types";
@@ -10,15 +10,13 @@ import { RecipeType, UserdataT } from "../method/types";
 const Recipe = () => {
   const { cookies, getSingleRecipe, getAllUserData } =
     useContext(GlobalContext);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const username = cookies.username;
   const [recipeData, setRecipeData] = useState<RecipeType>();
   const { id } = useParams();
-
   const [userdata, setUserdata] = useState<UserdataT>();
-  const [isFavorite, setIsFavorite] = useState(
-    false, // () => userdata && userdata.favorite_recipes.includes(''),
-  );
+
+  const [isFavorite, setIsFavorite] = useState<boolean | undefined>(false);
 
   const gettingData = async () => {
     const data = await getSingleRecipe(id as string);
@@ -33,7 +31,7 @@ const Recipe = () => {
       username: username,
       id: id,
     });
-    navigate("/");
+
     setIsFavorite((prev) => !prev);
   };
 
@@ -44,19 +42,18 @@ const Recipe = () => {
         id: id,
       },
     });
-    navigate("/");
+
     setIsFavorite((prev) => !prev);
   };
+
   useEffect(() => {
     gettingData();
   }, [id]);
 
-  console.log("recipe id: " + id);
-  console.log(cookies);
-  console.log(isFavorite);
-  console.log("Recipe", recipeData);
-  console.log("Userdata", userdata);
-  console.log(userdata?.favorite_recipes);
+  useEffect(() => {
+    setIsFavorite(() => userdata?.favorite_recipes.includes(id as string));
+  }, [userdata, id]);
+
   return (
     <div>
       {recipeData ? (
@@ -66,31 +63,34 @@ const Recipe = () => {
           </div>
 
           <div className="flex w-full flex-col gap-2">
-            <div>
-              {cookies.username && (
-                <div>
-                  {isFavorite ? (
-                    <HiHeart
-                      className="absolute right-1 top-1 text-4xl text-red-400 hover:text-gray-200 active:text-white"
-                      onClick={handleRemoveFavorite}
-                    />
-                  ) : (
-                    <HiHeart
-                      className="absolute right-1 top-1 text-4xl text-white hover:text-red-400 active:text-red-300"
-                      onClick={handleAddFavorite}
-                    />
-                  )}
+            <div className="flex justify-between">
+              <div>
+                <div className="text-3xl">{recipeData.name}</div>
+                <div className="flex gap-2 text-sm">
+                  <BsTag />
+                  <span>{makeFirstLetterCapital(recipeData.category)}</span>
                 </div>
-              )}
-            </div>
-            <div>
-              <div className="text-3xl">{recipeData.name}</div>
-              <div className="flex gap-2 text-sm">
-                <BsTag />
-                <span>{makeFirstLetterCapital(recipeData.category)}</span>
+              </div>
+              <div>
+                {cookies.username && (
+                  <div>
+                    {isFavorite ? (
+                      <HiHeart
+                        size={40}
+                        className="text-4xl text-red-400 duration-200 hover:text-red-300 active:text-red-500"
+                        onClick={handleRemoveFavorite}
+                      />
+                    ) : (
+                      <HiHeart
+                        size={40}
+                        className="text-4xl text-gray-400 duration-200 hover:text-gray-300 active:text-gray-500"
+                        onClick={handleAddFavorite}
+                      />
+                    )}
+                  </div>
+                )}
               </div>
             </div>
-
             <div>{recipeData.description}</div>
             <div>
               Source:{" "}

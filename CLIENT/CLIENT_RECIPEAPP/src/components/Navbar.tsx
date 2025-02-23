@@ -41,6 +41,7 @@ const Navbar = () => {
     <>
       <header className="sticky top-0 z-50 bg-white py-2 text-[0.85em]">
         <nav className="mx-auto flex w-[92%] items-center justify-between">
+          {/* Logo */}
           <div className="">
             <Link to="/" className="flex items-center justify-between gap-2">
               <img className="w-16" src="/img/logo.png" alt="" />
@@ -52,29 +53,25 @@ const Navbar = () => {
               </div>
             </Link>
           </div>
+
+          {/* Menu bar */}
           <div className="nav-links absolute left-0 top-[-100%] z-50 flex min-h-[40vh] w-full items-center bg-white px-5 md:static md:min-h-fit md:w-auto">
             <ul className="flex flex-col gap-5 md:flex-row md:items-center md:gap-[2vw]">
-              <li className="rounded-full px-3 py-2 text-center transition-all hover:bg-gray-200">
+              <li className="rounded-full px-3 py-2 text-center transition-all hover:bg-gray-100">
                 <Link className="" to="/">
                   Home
                 </Link>
               </li>
-              <li className="rounded-full px-3 py-2 text-center transition-all hover:bg-gray-200">
-                <Link className="" to="/">
+              <li className="rounded-full px-3 py-2 text-center transition-all hover:bg-gray-100">
+                <Link className="" to="/all-recipes">
                   Recipes
                 </Link>
               </li>
-              <li className="rounded-full px-3 py-2 text-center transition-all hover:bg-gray-200">
-                <Link className="" to="/">
+              <li className="rounded-full px-3 py-2 text-center transition-all hover:bg-gray-100">
+                <Link className="" to="/blogs">
                   Blogs
                 </Link>
               </li>
-              <li className="rounded-full px-3 py-2 text-center transition-all hover:bg-gray-200">
-                <Link className="" to="/my-favorite">
-                  Favorites
-                </Link>
-              </li>
-              <li></li>
             </ul>
           </div>
           <div>
@@ -104,34 +101,35 @@ const Navbar = () => {
                 </div>
                 {isUserNav && (
                   <div className="absolute z-50 bg-white p-2 text-sm">
-                    <ul className="flex flex-col gap-2">
-                      <li
+                    <div className="flex flex-col gap-2">
+                      <Link
+                        to="/my-recipes"
                         className="w-full cursor-pointer px-8 py-1 duration-200 hover:bg-gray-100"
                         onClick={() => setIsUserNav((prev) => !prev)}
                       >
                         My Recipe
-                      </li>
-                      <li
+                      </Link>
+                      <Link
+                        to="/my-favorites"
                         className="w-full cursor-pointer px-8 py-1 duration-200 hover:bg-gray-100"
                         onClick={() => setIsUserNav((prev) => !prev)}
                       >
                         My Favorite
-                      </li>
-                      <Link to="/create-recipe">
-                        <li
-                          className="w-full cursor-pointer px-8 py-1 duration-200 hover:bg-gray-100"
-                          onClick={() => setIsUserNav((prev) => !prev)}
-                        >
-                          Create Recipe
-                        </li>
                       </Link>
-                      <li
+                      <Link
+                        to="/create-recipe"
+                        className="w-full cursor-pointer px-8 py-1 duration-200 hover:bg-gray-100"
+                        onClick={() => setIsUserNav((prev) => !prev)}
+                      >
+                        Create Recipe
+                      </Link>
+                      <button
                         className="w-full cursor-pointer px-8 py-1 duration-200 hover:bg-gray-100"
                         onClick={handleLogout}
                       >
                         Logout
-                      </li>
-                    </ul>
+                      </button>
+                    </div>
                   </div>
                 )}
               </div>

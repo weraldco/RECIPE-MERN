@@ -14,6 +14,7 @@ export type GlobalContextT = {
   getRecipeByCategory: (category: string) => RecipeType[];
   getSingleRecipe: (id: string) => RecipeType;
   getAllUserData: (username: string) => UserdataT;
+  userData: UserdataT;
 };
 
 export type GlobalStateProps = {
@@ -43,6 +44,7 @@ export type UserdataT = {
   username: string;
   password: string;
   favorite_recipes: string[];
+  img_url: string;
 };
 export type RecipeItemProps = {
   recipe: RecipeType;
