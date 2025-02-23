@@ -19,6 +19,22 @@ const GlobalState = ({ children }: GlobalStateProps) => {
   const [categoryData, setCategoryData] = useState<CategoryT[]>([]);
   const [cookies, setCookies] = useCookies(["access_token", "username"]);
   const [query, setQuery] = useState<string>("");
+  const [favorites, setFavorites] = useState<[]>([]);
+
+  // const handleAddFavorite = async () => {
+  //   await axios.put("http://localhost:3001/recipes/addfavorite", {
+  //     username: username,
+  //     id: id,
+  //   });
+
+  //   setIsFavorite((prev) => !prev);
+  // };
+  const addFavorites = async (username: string, id: string) => {
+    await axios.put("http://localhost:3001/recipes/addfavorite", {
+      username: username,
+      id: id,
+    });
+  };
 
   const getUserData = async (username: string) => {
     try {

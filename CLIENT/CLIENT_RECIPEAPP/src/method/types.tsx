@@ -26,7 +26,7 @@ export type CookiesType = {
   username?: string;
 };
 export type RecipeType = {
-  _id: number;
+  _id: string;
   name: string;
   description: string;
   img_url: string;

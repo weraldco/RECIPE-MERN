@@ -4,7 +4,6 @@ import { RecipeItemProps } from "../method/types";
 
 const RecipeCardFull = ({ recipe }: RecipeItemProps) => {
   const { _id, img_url, name, description, cooking_time, rating } = recipe;
-  console.log();
   return (
     <>
       <Link to={`/recipes/${_id}`}>
@@ -39,7 +38,7 @@ const RecipeCardFull = ({ recipe }: RecipeItemProps) => {
             </div>
             {/* Description */}
             <div className="h-[200px] overflow-hidden text-[1rem]">
-              {description.split(" ").splice(0, 50).join(" ")}
+              {description.split(" ").splice(0, 40).join(" ")}
             </div>
             {/* Cooking Time */}
             <div className="flex gap-2 text-[1rem]">
