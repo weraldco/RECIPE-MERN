@@ -35,6 +35,7 @@ export type RecipeType = {
   instruction: string[];
   author: string;
   category: string;
+  rating: number;
 };
 type RecipeIdT = {
   recipeId: string;
