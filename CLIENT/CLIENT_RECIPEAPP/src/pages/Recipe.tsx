@@ -53,7 +53,7 @@ const Recipe = () => {
             <div className="flex justify-between">
               <div>
                 <div className="text-3xl">{recipeData.name}</div>
-                <div className="flex items-center gap-2 text-sm">
+                <div className="text-smg flex items-center gap-2">
                   <BsTag />
                   <span>{makeFirstLetterCapital(recipeData.category)}</span>
                   <div className="flex text-yellow-500">
