@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { BsTag } from "react-icons/bs";
 import { HiHeart } from "react-icons/hi";
+import { IoIosStar, IoIosStarHalf, IoIosStarOutline } from "react-icons/io";
 import { Link, useParams } from "react-router-dom";
 import { GlobalContext } from "../components/context/RecipeContext";
 import { makeFirstLetterCapital } from "../lib/lib";
@@ -52,9 +53,23 @@ const Recipe = () => {
             <div className="flex justify-between">
               <div>
                 <div className="text-3xl">{recipeData.name}</div>
-                <div className="flex gap-2 text-sm">
+                <div className="flex items-center gap-2 text-sm">
                   <BsTag />
                   <span>{makeFirstLetterCapital(recipeData.category)}</span>
+                  <div className="flex text-yellow-500">
+                    {Array.from({ length: Math.floor(recipeData.rating) }).map(
+                      (_, index) => (
+                        <IoIosStar size={20} key={index} />
+                      ),
+                    )}
+                    {recipeData.rating % 1 != 0 && <IoIosStarHalf size={20} />}
+                    {Array.from({
+                      length: Math.abs(Math.ceil(recipeData.rating) - 5),
+                    }).map((_, index) => (
+                      <IoIosStarOutline size={20} key={index} />
+                    ))}
+                  </div>
+                  <div className="flex items-center">{recipeData.rating}</div>
                 </div>
               </div>
               <div>
