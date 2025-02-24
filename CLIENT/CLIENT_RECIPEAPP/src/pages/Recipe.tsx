@@ -1,49 +1,33 @@
-import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { BsTag } from "react-icons/bs";
 import { HiHeart } from "react-icons/hi";
 import { Link, useParams } from "react-router-dom";
 import { GlobalContext } from "../components/context/RecipeContext";
 import { makeFirstLetterCapital } from "../lib/lib";
-import { RecipeType, UserdataT } from "../method/types";
+import { RecipeType } from "../method/types";
 
 const Recipe = () => {
-  const { cookies, getSingleRecipe, getAllUserData } =
+  const { cookies, getSingleRecipe, addFavorites, removeFavorites, userData } =
     useContext(GlobalContext);
-  // const navigate = useNavigate();
+
   const username = cookies.username;
-  const [recipeData, setRecipeData] = useState<RecipeType>();
+
+  const [recipeData, setRecipeData] = useState<RecipeType | undefined>();
   const { id } = useParams();
-  const [userdata, setUserdata] = useState<UserdataT>();
 
   const [isFavorite, setIsFavorite] = useState<boolean | undefined>(false);
 
   const gettingData = async () => {
     const data = await getSingleRecipe(id as string);
     setRecipeData(data);
-
-    const userdata = await getAllUserData(username as string);
-    setUserdata(userdata);
   };
 
-  const handleAddFavorite = async () => {
-    await axios.put("http://localhost:3001/recipes/addfavorite", {
-      username: username,
-      id: id,
-    });
-
-    setIsFavorite((prev) => !prev);
+  const handleAddFavorite = () => {
+    addFavorites(username, id);
   };
 
-  const handleRemoveFavorite = async () => {
-    await axios.delete("http://localhost:3001/recipes/removefavorite", {
-      data: {
-        username: username,
-        id: id,
-      },
-    });
-
-    setIsFavorite((prev) => !prev);
+  const handleRemoveFavorite = () => {
+    removeFavorites(username, id);
   };
 
   useEffect(() => {
@@ -51,8 +35,10 @@ const Recipe = () => {
   }, [id]);
 
   useEffect(() => {
-    setIsFavorite(() => userdata?.favorite_recipes.includes(id as string));
-  }, [userdata, id]);
+    if (userData) {
+      setIsFavorite(() => userData.favorite_recipes.includes(id as string));
+    }
+  }, [userData]);
 
   return (
     <div>

@@ -15,6 +15,12 @@ export type GlobalContextT = {
   getSingleRecipe: (id: string) => RecipeType;
   getAllUserData: (username: string) => UserdataT;
   userData: UserdataT;
+  addFavorites: (username: string | undefined, id: string | undefined) => void;
+  removeFavorites: (
+    username: string | undefined,
+    id: string | undefined,
+  ) => void;
+  favorites: RecipeType[] | undefined;
 };
 
 export type GlobalStateProps = {

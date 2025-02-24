@@ -1,4 +1,5 @@
 import axios from "axios";
+import { compareSync } from "bcrypt";
 import { createContext, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import {
@@ -6,34 +7,55 @@ import {
   GlobalContextT,
   GlobalStateProps,
   RecipeType,
+  UserdataT,
 } from "../../method/types";
 
 export const GlobalContext = createContext<GlobalContextT>();
 
 const GlobalState = ({ children }: GlobalStateProps) => {
   const [recipeID, setRecipeID] = useState();
-  const [userData, setUserData] = useState<[]>([]);
+  const [userData, setUserData] = useState<UserdataT>();
   const [username, setUsername] = useState<string>("");
   const [recipesData, setRecipesData] = useState<RecipeType[]>([]);
   const [singleRecipeData, setSingleRecipeData] = useState<RecipeType>();
   const [categoryData, setCategoryData] = useState<CategoryT[]>([]);
   const [cookies, setCookies] = useCookies(["access_token", "username"]);
   const [query, setQuery] = useState<string>("");
-  const [favorites, setFavorites] = useState<[]>([]);
+  const [favorites, setFavorites] = useState<RecipeType[] | undefined>([]);
 
-  // const handleAddFavorite = async () => {
-  //   await axios.put("http://localhost:3001/recipes/addfavorite", {
-  //     username: username,
-  //     id: id,
-  //   });
+  const getUserFavoriteRecipe = async () => {
+    try {
+      setFavorites(
+        recipesData.filter((recipe) =>
+          userData?.favorite_recipes.includes(recipe._id),
+        ),
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-  //   setIsFavorite((prev) => !prev);
-  // };
+  useEffect(() => {
+    getUserFavoriteRecipe();
+  }, [userData]);
+
   const addFavorites = async (username: string, id: string) => {
     await axios.put("http://localhost:3001/recipes/addfavorite", {
       username: username,
       id: id,
     });
+
+    await getUserData(username);
+  };
+
+  const removeFavorites = async (username: string, id: string) => {
+    await axios.delete("http://localhost:3001/recipes/removefavorite", {
+      data: {
+        username: username,
+        id: id,
+      },
+    });
+    await getUserData(username);
   };
 
   const getUserData = async (username: string) => {
@@ -121,10 +143,6 @@ const GlobalState = ({ children }: GlobalStateProps) => {
     }
   };
 
-  // useEffect(() => {
-  //   getSingleRecipe();
-  // }, [recipeID]);
-
   useEffect(() => {
     getAllRecipe();
     getAllCategories();
@@ -149,6 +167,9 @@ const GlobalState = ({ children }: GlobalStateProps) => {
     getRecipeByCategory,
     getSingleRecipe,
     getAllUserData,
+    addFavorites,
+    removeFavorites,
+    favorites,
   };
 
   return (
