@@ -5,7 +5,7 @@ import { CgClose } from "react-icons/cg";
 import { Link, useNavigate } from "react-router-dom";
 import { GlobalContext } from "./context/RecipeContext";
 
-const Navbar = () => {
+const NavbarTest = () => {
   const { userData } = useContext(GlobalContext);
   const navigate = useNavigate();
   const [cookies, setCookies] = useCookies(["access_token", "username"]);
@@ -50,27 +50,24 @@ const Navbar = () => {
         </div>
 
         {/* Menu bar */}
-        <div className="flex items-center justify-center gap-4">
-          <Link
-            className="rounded-full px-3 py-2 text-center transition-all hover:bg-gray-100"
-            to="/"
-          >
-            Home
-          </Link>
-
-          <Link
-            className="rounded-full px-3 py-2 text-center transition-all hover:bg-gray-100"
-            to="/all-recipes"
-          >
-            Recipes
-          </Link>
-
-          <Link
-            className="rounded-full px-3 py-2 text-center transition-all hover:bg-gray-100"
-            to="/blogs"
-          >
-            Blogs
-          </Link>
+        <div className="nav-links absolute left-0 top-[-100%] z-0 flex min-h-[40vh] w-full items-center bg-white px-5 md:static md:min-h-fit md:w-auto">
+          <ul className="flex flex-col gap-5 md:flex-row md:items-center md:gap-[2vw]">
+            <li className="rounded-full px-3 py-2 text-center transition-all hover:bg-gray-100">
+              <Link className="" to="/">
+                Home
+              </Link>
+            </li>
+            <li className="rounded-full px-3 py-2 text-center transition-all hover:bg-gray-100">
+              <Link className="" to="/all-recipes">
+                Recipes
+              </Link>
+            </li>
+            <li className="rounded-full px-3 py-2 text-center transition-all hover:bg-gray-100">
+              <Link className="" to="/blogs">
+                Blogs
+              </Link>
+            </li>
+          </ul>
         </div>
         <div>
           <input
@@ -157,15 +154,97 @@ const Navbar = () => {
           )}
         </div>
       </nav>
-      <div className="flex justify-center">
+
+      <div className="flex h-12 items-center justify-center gap-2 md:hidden xl:hidden">
+        <div className="">
+          <Link to="/" className="flex items-center justify-between gap-2">
+            <img className="w-16" src="/img/logo.png" alt="" />
+          </Link>
+        </div>
         <input
           type="search"
           className="w-full rounded-full border border-gray-100 bg-gray-100 p-3 outline-none"
           placeholder="Search recipes.."
         />
+        <div className="flex items-center gap-5">
+          {cookies.access_token != "" && userData && userData.img_url ? (
+            <div>
+              <div
+                className="flex cursor-pointer flex-row items-center gap-2 rounded-full py-1 pl-1 pr-3 hover:bg-gray-100"
+                onClick={() => {
+                  setIsUserNav((prev) => !prev);
+                }}
+              >
+                <div className="rounded-full border-2">
+                  <img
+                    src={userData.img_url}
+                    alt=""
+                    className="w-[38px] rounded-full object-contain"
+                  />
+                </div>
+              </div>
+              {isUserNav && (
+                <div className="absolute z-50 bg-white p-2 text-sm">
+                  <div className="flex flex-col gap-2">
+                    <Link
+                      to="/my-recipes"
+                      className="w-full cursor-pointer px-8 py-1 duration-200 hover:bg-gray-100"
+                      onClick={() => setIsUserNav((prev) => !prev)}
+                    >
+                      My Recipe
+                    </Link>
+                    <Link
+                      to="/my-favorites"
+                      className="w-full cursor-pointer px-8 py-1 duration-200 hover:bg-gray-100"
+                      onClick={() => setIsUserNav((prev) => !prev)}
+                    >
+                      My Favorite
+                    </Link>
+                    <Link
+                      to="/create-recipe"
+                      className="w-full cursor-pointer px-8 py-1 duration-200 hover:bg-gray-100"
+                      onClick={() => setIsUserNav((prev) => !prev)}
+                    >
+                      Create Recipe
+                    </Link>
+                    <button
+                      className="w-full cursor-pointer px-8 py-1 duration-200 hover:bg-gray-100"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="hidden gap-2 md:flex">
+              <Link
+                className="rounded-full bg-gray-600 px-3 py-2 text-white transition-all hover:bg-gray-500"
+                to="/registration"
+              >
+                Want to join?
+              </Link>
+              <Link
+                className="rounded-full bg-blue-400 px-3 py-2 text-white transition-all hover:bg-blue-300"
+                to="/login"
+              >
+                Sign in
+              </Link>
+            </div>
+          )}
+          {isMenu ? (
+            <CgClose onClick={toggleMenu} className="cursor-pointer text-2xl" />
+          ) : (
+            <BiMenu
+              onClick={toggleMenu}
+              className="cursor-pointer text-2xl md:hidden"
+            />
+          )}
+        </div>
       </div>
     </header>
   );
 };
 
-export default Navbar;
+export default NavbarTest;

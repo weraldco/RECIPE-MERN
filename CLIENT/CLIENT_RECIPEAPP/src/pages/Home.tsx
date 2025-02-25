@@ -3,9 +3,8 @@ import Recipes from "../components/Recipes";
 
 const Home = () => {
   return (
-    <>
-      <div className="grid gap-1 px-0 md:px-10 xl:px-5">
-        <div className="relative mb-10 mt-10">
+    <div className="grid h-screen gap-1 px-0 md:px-10 xl:px-5">
+      {/* <div className="relative mb-10 mt-10">
           <div className="absolute right-10 top-10 grid w-[550px] gap-5">
             <h1 className="text-5xl font-bold text-white">
               Discover Recipe <br />
@@ -36,9 +35,8 @@ const Home = () => {
         <Recipes label={"Latest Recipes"} query="filipino" />
         <Recipes label={"Filipino Recipes"} query="filipino" />
         <Recipes label={"Indian Recipe"} query="filipino" />
-        <Recipes label={"Thai Recipes"} query="filipino" />
-      </div>
-    </>
+        <Recipes label={"Thai Recipes"} query="filipino" /> */}
+    </div>
   );
 };
 

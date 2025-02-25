@@ -1,0 +1,35 @@
+Home
+   |
+   - Home 
+      -> page/Home.tsx, components: Recipes, Category
+   |
+   - Recipes 
+      -> page/AllRecipes.tsx, components: RecipeCardFull
+   |
+   - Blogs 
+      -> page/Blogs.tsx
+   |
+   
+   Search bar 
+      -> static input
+
+   |
+   - Want to join? 
+      -> Register.tsx
+   |
+   - Sign in
+      -> Login.tsx
+
+
+   Dashboard
+   |
+   - My Recipes
+      -> page/MyRecipes.tsx components: RecipeCardFull
+   |
+   - My Favorite
+      -> page/Favorites.tsx components: RecipeCardFull
+   |
+   - Create Recipe
+      -> page/CreateRecipe.tsx
+   |
+   - Logout
