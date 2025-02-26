@@ -31,23 +31,23 @@ const WideNavbar = () => {
         </Link>
         <Link
           className="rounded-full px-4 py-2 duration-200 hover:bg-gray-200 active:bg-gray-300"
-          to="/"
+          to="/all-recipes"
         >
           Recipes
         </Link>
         <Link
           className="rounded-full px-4 py-2 duration-200 hover:bg-gray-200 active:bg-gray-300"
-          to="/"
+          to="/blogs"
         >
           Blogs
         </Link>
       </div>
 
       {/* Search */}
-      <div className="relative hidden md:hidden xl:flex">
+      <div className="group relative hidden md:hidden xl:flex">
         <input
           type="text"
-          className="w-[300px] rounded-full border border-gray-400 px-4 py-2 outline-none"
+          className="w-[300px] rounded-full border border-gray-400 px-4 py-2 outline-none group-hover:border-blue-400"
           placeholder="Search Recipes.."
         />
         <CiSearch className="absolute right-2 top-[7px]" size={26} />

@@ -25,7 +25,7 @@ const Recipes = ({ label, query }: RecipesProps) => {
   }, []);
   return (
     <>
-      <div className="grid h-[750px] items-center justify-center md:h-[400px] xl:h-[440px] xl:px-3">
+      <div className="grid h-[750px] items-center justify-center overflow-hidden md:h-[400px] xl:h-[440px] xl:px-3">
         <div>
           <h1 className="text-[1.25em]">{label}</h1>
         </div>
