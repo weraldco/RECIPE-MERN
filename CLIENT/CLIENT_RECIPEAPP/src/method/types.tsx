@@ -21,6 +21,7 @@ export type GlobalContextT = {
     id: string | undefined,
   ) => void;
   favorites: RecipeType[] | undefined;
+  logOutUser: () => void;
 };
 
 export type GlobalStateProps = {

@@ -1,7 +1,7 @@
 import axios from "axios";
-import { compareSync } from "bcrypt";
 import { createContext, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 import {
   CategoryT,
   GlobalContextT,
@@ -22,6 +22,7 @@ const GlobalState = ({ children }: GlobalStateProps) => {
   const [cookies, setCookies] = useCookies(["access_token", "username"]);
   const [query, setQuery] = useState<string>("");
   const [favorites, setFavorites] = useState<RecipeType[] | undefined>([]);
+  const navigate = useNavigate();
 
   const getUserFavoriteRecipe = async () => {
     try {
@@ -143,6 +144,17 @@ const GlobalState = ({ children }: GlobalStateProps) => {
     }
   };
 
+  const logOutUser = async () => {
+    try {
+      setCookies("access_token", "");
+      setCookies("username", "");
+      window.localStorage.removeItem("userID");
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     getAllRecipe();
     getAllCategories();
@@ -170,6 +182,7 @@ const GlobalState = ({ children }: GlobalStateProps) => {
     addFavorites,
     removeFavorites,
     favorites,
+    logOutUser,
   };
 
   return (
