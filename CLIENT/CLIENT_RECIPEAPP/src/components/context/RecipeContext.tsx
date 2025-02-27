@@ -12,21 +12,35 @@ import {
   UserdataT,
 } from "../../method/types";
 
-const defaultValue = {};
+const defaultValue: GlobalContextT = {
+  // userData: undefined,
+  // recipesData: undefined,
+  // username: undefined,
+  // setUsername: () => undefined,
+  // cookies: undefined,
+  // categoryData: [],
+  // setRecipeID: () => undefined,
+  // singleRecipeData: undefined,
+  getSingleRecipe: null,
+  // setQuery: () => [],
+  // favorites: undefined,
+  // addFavorites: () => {},
+  // removeFavorites: () => {},
+};
 
-export const GlobalContext = createContext<GlobalContextT>();
+export const GlobalContext = createContext<GlobalContextT>(defaultValue);
 
 const GlobalState = ({ children }: GlobalStateProps) => {
-  const [recipeID, setRecipeID] = useState();
+  const [recipeID, setRecipeID] = useState<string | undefined>();
   const [userData, setUserData] = useState<UserdataT>();
   const [username, setUsername] = useState<string>("");
   const [recipesData, setRecipesData] = useState<RecipeType[]>([]);
   const [singleRecipeData, setSingleRecipeData] = useState<RecipeType>();
   const [categoryData, setCategoryData] = useState<CategoryT[]>([]);
-  const [cookies, setCookies] = useCookies(["access_token", "username"]);
   const [query, setQuery] = useState<string>("");
   const [favorites, setFavorites] = useState<RecipeType[] | undefined>([]);
   const navigate = useNavigate();
+  const [cookies, setCookies] = useCookies(["access_token", "username"]);
 
   const getUserFavoriteRecipe = async () => {
     try {
@@ -125,7 +139,7 @@ const GlobalState = ({ children }: GlobalStateProps) => {
     }
   };
 
-  const getRecipeByCategory = async (category: string | undefined) => {
+  const getRecipeByCategory = async (category: string) => {
     try {
       const res = await axios.get(
         `http://localhost:3001/recipes/category?query=${category}`,
@@ -141,8 +155,12 @@ const GlobalState = ({ children }: GlobalStateProps) => {
     try {
       if (id !== undefined) {
         const response = await axios.get(`http://localhost:3001/recipes/${id}`);
-        if (response.data.length != 0) return response.data;
+        if (response.data) {
+          const data: RecipeType = await response.data;
+          return data;
+        }
       }
+      return null;
     } catch (err) {
       console.error(err);
     }
@@ -169,24 +187,24 @@ const GlobalState = ({ children }: GlobalStateProps) => {
   }, [cookies]);
 
   const defaultValue = {
-    userData,
-    recipesData,
-    username,
-    setUsername,
-    cookies,
-    setCookies,
-    categoryData,
-    setRecipeID,
-    singleRecipeData,
-    setQuery,
-    getRecipeByUser,
-    getRecipeByCategory,
+    // userData,
+    // recipesData,
+    // username,
+    // setUsername,
+    // cookies,
+    // setCookies,
+    // categoryData,
+    // setRecipeID,
+    // singleRecipeData,
+    // setQuery,
+    // favorites,
+    // getRecipeByCategory,
+    // getRecipeByUser,
     getSingleRecipe,
-    getAllUserData,
-    addFavorites,
-    removeFavorites,
-    favorites,
-    logOutUser,
+    // getAllUserData,
+    // logOutUser,
+    // addFavorites,
+    // removeFavorites,
   };
 
   return (

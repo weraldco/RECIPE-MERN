@@ -7,9 +7,11 @@ const Search = () => {
   const { recipesData } = useContext(GlobalContext);
   const { query } = useParams();
 
-  const recipes = recipesData.filter((recipe) =>
-    recipe.name.toLowerCase().includes((query as string).toLowerCase()),
-  );
+  const recipes =
+    recipesData &&
+    recipesData.filter((recipe) =>
+      recipe.name.toLowerCase().includes((query as string).toLowerCase()),
+    );
 
   return (
     <div className="grid gap-4 px-4">

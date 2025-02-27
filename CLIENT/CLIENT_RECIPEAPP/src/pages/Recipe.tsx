@@ -9,12 +9,12 @@ import { makeFirstLetterCapital } from "../lib/lib";
 import { RecipeType } from "../method/types";
 
 const Recipe = () => {
-  const { cookies, getSingleRecipe, addFavorites, removeFavorites, userData } =
-    useContext(GlobalContext);
+  // const { cookies, getSingleRecipe, addFavorites, removeFavorites, userData } =
+  //   useContext(GlobalContext);
+  const { getSingleRecipe } = useContext(GlobalContext);
+  // const username = cookies?.username;
 
-  const username = cookies.username;
-
-  const [recipeData, setRecipeData] = useState<RecipeType | undefined>();
+  const [recipeData, setRecipeData] = useState<RecipeType | null>();
   const { id } = useParams();
 
   const [isFavorite, setIsFavorite] = useState<boolean | undefined>(false);
@@ -24,13 +24,17 @@ const Recipe = () => {
     setRecipeData(data);
   };
 
-  const handleAddFavorite = () => {
-    addFavorites(username, id);
-  };
+  // const handleAddFavorite = () => {
+  //   if (username && id) {
+  //     addFavorites(username, id);
+  //   }
+  // };
 
-  const handleRemoveFavorite = () => {
-    removeFavorites(username, id);
-  };
+  // const handleRemoveFavorite = () => {
+  //   if (username && id) {
+  //     removeFavorites(username, id);
+  //   }
+  // };
 
   useEffect(() => {
     gettingData();
@@ -74,7 +78,7 @@ const Recipe = () => {
                 </div>
               </div>
               <div>
-                {cookies.username && (
+                {cookies?.username && (
                   <div>
                     {isFavorite ? (
                       <HiHeart

@@ -1,25 +1,26 @@
-import { ReactNode } from "react";
+import { Dispatch, ReactNode, SetStateAction } from "react";
 
 export type GlobalContextT = {
-  username?: string;
-  setUsername: unknown;
-  recipesData: RecipeType[];
-  cookies: CookiesType;
-  setCookies: unknown;
-  categoryData: CategoryT[];
-  setRecipeID: (id: string | undefined) => void;
-  singleRecipeData?: RecipeType;
-  getRecipeByCategory: (category: string) => RecipeType[];
-  getSingleRecipe: (id: string) => RecipeType;
-  getAllUserData: (username: string) => UserdataT;
-  userData: UserdataT;
-  addFavorites: (username: string | undefined, id: string | undefined) => void;
-  removeFavorites: (
-    username: string | undefined,
-    id: string | undefined,
-  ) => void;
-  favorites: RecipeType[] | undefined;
-  logOutUser: () => void;
+  // userData: UserdataT | undefined;
+  // recipesData: RecipeType[] | undefined;
+  // username: string | undefined;
+  // setUsername?: Dispatch<SetStateAction<string>>;
+  // cookies: CookiesType | undefined;
+  // setCookies?: (name: "access_token" | "username", value: string) => void;
+  // categoryData: CategoryT[];
+  // setRecipeID?: Dispatch<SetStateAction<string | undefined>>;
+  // singleRecipeData?: RecipeType | undefined;
+  // setQuery: Dispatch<SetStateAction<string>>;
+  // favorites: RecipeType[] | undefined;
+
+  // getRecipeByCategory?: (category: string) => Promise<RecipeType[] | undefined>;
+  // getAllUserData?: (username: string) => Promise<UserdataT>;
+  getSingleRecipe: (id: string) => Promise<RecipeType | null>;
+
+  // logOutUser?: () => void;
+
+  // addFavorites: (username: string, id: string) => void;
+  // removeFavorites: (username: string, id: string) => void;
 };
 
 export type GlobalStateProps = {
@@ -30,6 +31,7 @@ export type CookiesType = {
   access_token?: string;
   username?: string;
 };
+
 export type RecipeType = {
   _id: string;
   name: string;

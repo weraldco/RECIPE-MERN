@@ -9,7 +9,7 @@ const UserLogoMenu = () => {
 
   return (
     <div>
-      {cookies.access_token != "" && userData && userData.img_url ? (
+      {cookies?.access_token != "" && userData && userData.img_url ? (
         <div>
           <div
             className="flex cursor-pointer flex-row items-center gap-2 rounded-full py-1 pl-1 pr-3 hover:bg-gray-100"

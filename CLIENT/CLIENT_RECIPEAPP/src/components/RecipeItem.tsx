@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useCookies } from "react-cookie";
 import { HiHeart } from "react-icons/hi";
 import { Link, useNavigate } from "react-router-dom";
-import { RecipeType, UserdataT } from "../method/createRecipeErrorHandler";
+import { RecipeType, UserdataT } from "../method/types";
 
 type RecipeItemProps = {
   recipe: RecipeType;

@@ -9,7 +9,7 @@ import { GlobalContext } from "./context/RecipeContext";
 const RecipeCardFull = ({ recipe }: RecipeItemProps) => {
   const { cookies, addFavorites, removeFavorites, userData } =
     useContext(GlobalContext);
-  const username = cookies.username;
+  const username = cookies?.username;
 
   const [isFavorite, setIsFavorite] = useState<boolean | undefined>(false);
 
@@ -31,7 +31,7 @@ const RecipeCardFull = ({ recipe }: RecipeItemProps) => {
 
   return (
     <div className="group relative duration-200">
-      {cookies.username && (
+      {cookies?.username && (
         <div>
           {isFavorite ? (
             <HiHeart

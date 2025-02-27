@@ -11,9 +11,10 @@ export const AllRecipes = () => {
         {/* Header */}
         <h1 className="text-2xl">All Recipes</h1> {/* Content */}
         <div className="grid grid-cols-2 gap-x-4 gap-y-6 md:grid-cols-4 xl:grid-cols-6">
-          {recipesData.map((recipe, i) => (
-            <RecipeCardFull key={i} recipe={recipe} />
-          ))}
+          {recipesData &&
+            recipesData.map((recipe, i) => (
+              <RecipeCardFull key={i} recipe={recipe} />
+            ))}
         </div>
       </div>
     </>

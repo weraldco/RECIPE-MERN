@@ -64,7 +64,7 @@ const WideNavbar = () => {
 
       {/* Login Logout */}
       <div>
-        {cookies.access_token && cookies.username && userData ? (
+        {cookies?.access_token && cookies?.username && userData ? (
           <UserMenu />
         ) : (
           <div className="flex flex-row gap-4">

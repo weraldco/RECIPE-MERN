@@ -16,7 +16,7 @@ const UserMenu = () => {
       >
         <div className="rounded-full border-2">
           <img
-            src={userData.img_url}
+            src={userData?.img_url}
             alt=""
             className="w-[38px] rounded-full object-contain"
           />

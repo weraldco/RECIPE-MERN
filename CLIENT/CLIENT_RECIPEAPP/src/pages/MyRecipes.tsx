@@ -5,8 +5,9 @@ import RecipeCardFull from "../components/RecipesCardFull";
 const MyRecipes = () => {
   // get the function in Context
   const { cookies, recipesData } = useContext(GlobalContext);
-  const username = cookies.username;
-  const recipes = recipesData.filter((recipe) => recipe.author === username);
+  const username = cookies?.username;
+  const recipes =
+    recipesData && recipesData.filter((recipe) => recipe.author === username);
   // get the data of user
   return (
     <div className="flex flex-col gap-4 p-4">
