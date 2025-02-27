@@ -1,19 +1,20 @@
 export type RecipeType = {
-	_id: number,
-	name: string,
-	description: string,
-	img_url: string,
-	cooking_time: string,
-	ingridients: string[],
-	instructions: string[],
-	author: string,
+  _id: number;
+  name: string;
+  description: string;
+  img_url: string;
+  cooking_time: string;
+  ingridients: string[];
+  instructions: string[];
+  author: string;
+  category: string;
 };
 type RecipeIdT = {
-	recipeId: string,
+  recipeId: string;
 };
 export type UserdataT = {
-	_id: number,
-	username: string,
-	password: string,
-	favorite_recipes: RecipeIdT[],
+  _id: number;
+  username: string;
+  password: string;
+  favorite_recipes: RecipeIdT[];
 };

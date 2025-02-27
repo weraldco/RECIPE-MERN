@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ReactNode } from "react";
 
 export type GlobalContextT = {
@@ -44,9 +43,7 @@ export type RecipeType = {
   category: string;
   rating: number;
 };
-type RecipeIdT = {
-  recipeId: string;
-};
+
 export type UserdataT = {
   _id: number;
   username: string;

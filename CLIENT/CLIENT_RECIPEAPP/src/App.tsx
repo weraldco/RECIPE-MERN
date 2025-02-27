@@ -1,7 +1,6 @@
 import { useCookies } from "react-cookie";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import NavbarTest from "./components/NavbarTest";
 import { AllRecipes } from "./pages/AllRecipes";
 import Blogs from "./pages/Blogs";
 import Category from "./pages/Category";
@@ -22,7 +21,7 @@ function App() {
     <>
       <div className="flex items-center justify-center">
         <div className="w-full bg-slate-50 xl:w-[1280px]">
-          <NavbarTest />
+          <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
             {cookies.access_token !== "" && (

@@ -7,7 +7,6 @@ import UserMenu from "./UserNav";
 const WideNavbar = () => {
   const { userData, cookies } = useContext(GlobalContext);
   const [searchQuery, setSearchQuery] = useState<string>("");
-  console.log(searchQuery);
   return (
     <div className="hidden flex-row items-center justify-between md:flex xl:flex">
       {/* Logo */}
@@ -57,9 +56,9 @@ const WideNavbar = () => {
               setSearchQuery(e.target.value);
             }}
           />
-          <button type="submit">
+          <Link to={`/search/${searchQuery}`}>
             <CiSearch className="absolute right-2 top-[7px]" size={26} />
-          </button>
+          </Link>
         </form>
       </div>
 

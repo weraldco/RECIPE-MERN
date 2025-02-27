@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
@@ -174,7 +175,7 @@ const FormMultipleTextfield = ({
       <div className="grid">
         <label className="text-sm">{label}</label>
         <ul className="grid gap-3">
-          {stateList.map((item, index) => (
+          {stateList.map((_, index) => (
             <li key={index} className="grid">
               <input
                 type="text"
