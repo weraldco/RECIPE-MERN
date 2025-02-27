@@ -3,17 +3,10 @@ import { Link } from "react-router-dom";
 import { GlobalContext } from "./context/RecipeContext";
 
 const UserLogoMenu = () => {
-  const { cookies, userData } = useContext(GlobalContext);
+  const { cookies, userData, logOutUser } = useContext(GlobalContext);
 
   const [isUserNav, setIsUserNav] = useState(false);
 
-  const handleLogout = () => {
-    setCookies("access_token", "");
-    setCookies("username", "");
-    window.localStorage.removeItem("userID");
-    navigate("/");
-    setIsUserNav(false);
-  };
   return (
     <div>
       {cookies.access_token != "" && userData && userData.img_url ? (
@@ -59,7 +52,7 @@ const UserLogoMenu = () => {
                 </Link>
                 <button
                   className="w-full cursor-pointer px-8 py-1 duration-200 hover:bg-gray-100"
-                  onClick={handleLogout}
+                  onClick={logOutUser}
                 >
                   Logout
                 </button>

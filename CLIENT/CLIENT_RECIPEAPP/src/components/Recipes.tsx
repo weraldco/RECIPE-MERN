@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from "react";
 import { RecipeType } from "../method/types";
 import { GlobalContext } from "./context/RecipeContext";

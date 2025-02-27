@@ -1,5 +1,5 @@
 export type RecipeType = {
-  _id: number;
+  _id: string;
   name: string;
   description: string;
   img_url: string;
@@ -9,12 +9,10 @@ export type RecipeType = {
   author: string;
   category: string;
 };
-type RecipeIdT = {
-  recipeId: string;
-};
+
 export type UserdataT = {
-  _id: number;
+  _id: string;
   username: string;
   password: string;
-  favorite_recipes: RecipeIdT[];
+  favorite_recipes: string[];
 };

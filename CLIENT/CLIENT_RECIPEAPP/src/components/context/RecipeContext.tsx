@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
@@ -9,6 +11,8 @@ import {
   RecipeType,
   UserdataT,
 } from "../../method/types";
+
+const defaultValue = {};
 
 export const GlobalContext = createContext<GlobalContextT>();
 

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from "react";
 import { BsTag } from "react-icons/bs";
 import { HiHeart } from "react-icons/hi";

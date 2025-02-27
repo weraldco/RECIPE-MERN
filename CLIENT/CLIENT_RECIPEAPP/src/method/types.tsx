@@ -9,7 +9,6 @@ export type GlobalContextT = {
   categoryData: CategoryT[];
   setRecipeID: (id: string | undefined) => void;
   singleRecipeData?: RecipeType;
-  getRecipeByQuery: (query: string) => RecipeType[];
   getRecipeByCategory: (category: string) => RecipeType[];
   getSingleRecipe: (id: string) => RecipeType;
   getAllUserData: (username: string) => UserdataT;
@@ -45,7 +44,7 @@ export type RecipeType = {
 };
 
 export type UserdataT = {
-  _id: number;
+  _id: string;
   username: string;
   password: string;
   favorite_recipes: string[];

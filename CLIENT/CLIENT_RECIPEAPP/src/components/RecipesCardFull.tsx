@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from "react";
 import { HiHeart } from "react-icons/hi";
 import { IoIosStar, IoIosStarHalf, IoIosStarOutline } from "react-icons/io";

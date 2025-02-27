@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 const Registration = () => {
   const [username, setUsername] = useState<string>("");
@@ -8,7 +8,7 @@ const Registration = () => {
   const [success, setSuccess] = useState<string>();
   const [error, setError] = useState<string>();
 
-  const handleSubmit = async (event: MouseEvent) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event?.preventDefault();
     try {
       await axios.post("http://localhost:3001/auth/register", {
@@ -68,22 +68,7 @@ const Registration = () => {
               }}
             />
           </div>
-          {/* <div className="grid items-center">
-						<label className="text-sm text-gray-600" htmlFor="rpwd">
-							Repeat your password:{' '}
-						</label>
-						<input
-							className="bg-slate-200 p-2 col-span-2 rounded-lg"
-							placeholder="Enter your password.."
-							type="text"
-							name=""
-							id="rpwd"
-							value={rpassword}
-							onChange={(e) => {
-								setRPassword(e.target.value);
-							}}
-						/>
-					</div> */}
+
           <button
             className="mt-5 rounded-lg bg-blue-500 p-3 text-white transition-all hover:bg-blue-400 active:bg-blue-500"
             type="submit"
