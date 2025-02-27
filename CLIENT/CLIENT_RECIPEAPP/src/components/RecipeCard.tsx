@@ -11,11 +11,11 @@ const RecipeCard = ({ recipe }: RecipeItemProps) => {
             <img
               src={img_url}
               alt=""
-              className="h-[300px] w-[190px] rounded-lg shadow-lg"
+              className="h-[300px] rounded-lg shadow-lg"
             />
           </div>
           <div className=" ">{name}</div>
-        </div>{" "}
+        </div>
       </Link>
     </>
   );

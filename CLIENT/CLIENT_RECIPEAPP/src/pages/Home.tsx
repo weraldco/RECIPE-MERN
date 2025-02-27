@@ -3,14 +3,14 @@ import Recipes from "../components/Recipes";
 
 const Home = () => {
   return (
-    <div className="grid min-h-screen w-full gap-1 px-0 md:px-10 xl:px-5">
-      <div className="relative mb-10 mt-10">
-        <div className="absolute right-10 top-10 grid w-[550px] gap-5">
-          <h1 className="text-5xl font-bold text-white">
+    <div className="grid w-full gap-4 px-0 md:px-10 xl:px-5">
+      <div className="relative mt-10 bg-blue-200">
+        <div className="absolute right-10 top-10 grid w-[400px] gap-5 md:w-[550px]">
+          <h1 className="text-3xl font-bold text-white md:text-5xl">
             Discover Recipe <br />
             of World Causine
           </h1>
-          <span className="text-lg text-gray-300">
+          <span className="text-base text-gray-300 md:text-lg">
             Explore our diverse collection of recipes, from spicy Thai curries
             to hearty Italian pastas, we've got it all! Or be the one of us who
             can share your own unique Recipes.

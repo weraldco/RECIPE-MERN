@@ -32,13 +32,13 @@ const MobileNavbar = () => {
             </Link>
             <Link
               className="rounded-full px-2 py-2 duration-200 hover:bg-gray-200 active:bg-gray-300"
-              to="/"
+              to="/all-recipes"
             >
               Recipes
             </Link>
             <Link
               className="rounded-full px-2 py-2 duration-200 hover:bg-gray-200 active:bg-gray-300"
-              to="/"
+              to="/blogs"
             >
               Blogs
             </Link>

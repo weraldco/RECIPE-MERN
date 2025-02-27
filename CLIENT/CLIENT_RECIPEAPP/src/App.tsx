@@ -13,6 +13,7 @@ import MyRecipes from "./pages/MyRecipes";
 import NotFoundPage from "./pages/NotFoundPage";
 import Recipe from "./pages/Recipe";
 import Registration from "./pages/Register";
+import Search from "./pages/Search";
 
 function App() {
   const [cookies] = useCookies<string>(["access_token"]);
@@ -37,6 +38,8 @@ function App() {
             <Route path="/recipes/:id" element={<Recipe />} />
             <Route path="/registration" element={<Registration />} />
             <Route path="/recipes/category/:category" element={<Category />} />
+
+            <Route path="/search/:query" element={<Search />}></Route>
 
             <Route path="/login" element={<Login />} />
             <Route path="*" element={<NotFoundPage />} />

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import { GlobalContext } from "../context/RecipeContext";
@@ -6,6 +6,8 @@ import UserMenu from "./UserNav";
 
 const WideNavbar = () => {
   const { userData, cookies } = useContext(GlobalContext);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  console.log(searchQuery);
   return (
     <div className="hidden flex-row items-center justify-between md:flex xl:flex">
       {/* Logo */}
@@ -45,12 +47,20 @@ const WideNavbar = () => {
 
       {/* Search */}
       <div className="group relative hidden md:hidden xl:flex">
-        <input
-          type="text"
-          className="w-[300px] rounded-full border border-gray-400 px-4 py-2 outline-none group-hover:border-blue-400"
-          placeholder="Search Recipes.."
-        />
-        <CiSearch className="absolute right-2 top-[7px]" size={26} />
+        <form action={`/search/${searchQuery}`}>
+          <input
+            type="text"
+            className="w-[300px] rounded-full border border-gray-400 px-4 py-2 outline-none group-hover:border-blue-400"
+            placeholder="Search Recipes.."
+            value={searchQuery}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+            }}
+          />
+          <button type="submit">
+            <CiSearch className="absolute right-2 top-[7px]" size={26} />
+          </button>
+        </form>
       </div>
 
       {/* Login Logout */}

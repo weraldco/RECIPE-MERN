@@ -7,10 +7,10 @@ export const AllRecipes = () => {
   console.log(cookies);
   return (
     <>
-      <div className="grid place-content-center">
+      <div className="grid place-content-center px-3">
         {/* Header */}
-        <h1 className="text-3xl">All Recipes</h1> {/* Content */}
-        <div className="grid grid-cols-5 gap-x-4 gap-y-6">
+        <h1 className="text-2xl">All Recipes</h1> {/* Content */}
+        <div className="grid grid-cols-2 gap-x-4 gap-y-6 md:grid-cols-4 xl:grid-cols-6">
           {recipesData.map((recipe, i) => (
             <RecipeCardFull key={i} recipe={recipe} />
           ))}
