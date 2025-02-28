@@ -21,7 +21,7 @@ const defaultValue: GlobalContextT = {
   // categoryData: [],
   // setRecipeID: () => undefined,
   // singleRecipeData: undefined,
-  getSingleRecipe: null,
+  getSingleRecipe: async () => null,
   // setQuery: () => [],
   // favorites: undefined,
   // addFavorites: () => {},
@@ -151,18 +151,15 @@ const GlobalState = ({ children }: GlobalStateProps) => {
     }
   };
 
-  const getSingleRecipe = async (id: string) => {
+  const getSingleRecipe = async (id: string): Promise<RecipeType | null> => {
     try {
-      if (id !== undefined) {
-        const response = await axios.get(`http://localhost:3001/recipes/${id}`);
-        if (response.data) {
-          const data: RecipeType = await response.data;
-          return data;
-        }
-      }
-      return null;
+      const response = await axios.get(`http://localhost:3001/recipes/${id}`);
+
+      const data = await response.data;
+      return data || null;
     } catch (err) {
       console.error(err);
+      return null;
     }
   };
 
@@ -186,7 +183,7 @@ const GlobalState = ({ children }: GlobalStateProps) => {
     getUserData(cookies.username);
   }, [cookies]);
 
-  const defaultValue = {
+  const value = {
     // userData,
     // recipesData,
     // username,
@@ -209,9 +206,7 @@ const GlobalState = ({ children }: GlobalStateProps) => {
 
   return (
     <>
-      <GlobalContext.Provider value={defaultValue}>
-        {children}
-      </GlobalContext.Provider>
+      <GlobalContext.Provider value={value}>{children}</GlobalContext.Provider>
     </>
   );
 };
