@@ -9,10 +9,10 @@ import { makeFirstLetterCapital } from "../lib/lib";
 import { RecipeType } from "../method/types";
 
 const Recipe = () => {
-  // const { cookies, getSingleRecipe, addFavorites, removeFavorites, userData } =
-  //   useContext(GlobalContext);
-  const { getSingleRecipe } = useContext(GlobalContext);
-  // const username = cookies?.username;
+  const { cookies, getSingleRecipe, addFavorites, removeFavorites, userData } =
+    useContext(GlobalContext);
+
+  const username = cookies?.username;
 
   const [recipeData, setRecipeData] = useState<RecipeType | null>();
   const { id } = useParams();
@@ -24,17 +24,13 @@ const Recipe = () => {
     setRecipeData(data);
   };
 
-  // const handleAddFavorite = () => {
-  //   if (username && id) {
-  //     addFavorites(username, id);
-  //   }
-  // };
+  const handleAddFavorite = async () => {
+    await addFavorites(username as string, id as string);
+  };
 
-  // const handleRemoveFavorite = () => {
-  //   if (username && id) {
-  //     removeFavorites(username, id);
-  //   }
-  // };
+  const handleRemoveFavorite = async () => {
+    await removeFavorites(username as string, id as string);
+  };
 
   useEffect(() => {
     gettingData();

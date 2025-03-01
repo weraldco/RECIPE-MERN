@@ -8,11 +8,13 @@ const CategoryList = () => {
 
   return (
     <>
-      <div className="grid w-full grid-flow-row grid-cols-3 items-center justify-center gap-5 px-5 md:h-[150px] md:grid-cols-6 xl:w-full">
-        {categoryData.map((category) => (
-          <CategoryCard key={category._id} category={category} />
-        ))}
-      </div>
+      {categoryData && (
+        <div className="grid w-full grid-flow-row grid-cols-3 items-center justify-center gap-5 px-5 md:h-[150px] md:grid-cols-6 xl:w-full">
+          {categoryData.map((category) => (
+            <CategoryCard key={category._id} category={category} />
+          ))}
+        </div>
+      )}
     </>
   );
 };

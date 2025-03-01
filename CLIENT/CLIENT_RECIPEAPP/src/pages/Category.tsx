@@ -14,7 +14,9 @@ const Category = () => {
   const getData = async () => {
     try {
       const data = await getRecipeByCategory(category as string);
-      setRecipesData(data.splice(0, 6));
+      if (data) {
+        setRecipesData(data.splice(0, 6));
+      }
     } catch (error) {
       console.error(error);
     }

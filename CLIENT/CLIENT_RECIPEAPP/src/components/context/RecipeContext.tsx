@@ -13,33 +13,38 @@ import {
 } from "../../method/types";
 
 const defaultValue: GlobalContextT = {
+  recipeID: null,
   userData: null,
   recipesData: null,
-  // username: undefined,
-  // setUsername: () => undefined,
-  // cookies: undefined,
-  // categoryData: [],
-  // setRecipeID: () => undefined,
+  username: null,
+  setUsername: () => null,
+  cookies: null,
+  categoryData: null,
+  setRecipeID: () => null,
   singleRecipeData: null,
+
+  getRecipeByUser: async () => null,
   getRecipeByCategory: async () => null,
   getAllUserData: async () => null,
   getSingleRecipe: async () => null,
-  // setQuery: () => [],
+
+  setQuery: () => null,
   favorites: null,
   addFavorites: async () => {},
   removeFavorites: async () => {},
+  logOutUser: async () => {},
 };
 
 export const GlobalContext = createContext<GlobalContextT>(defaultValue);
 
 const GlobalState = ({ children }: GlobalStateProps) => {
-  const [recipeID, setRecipeID] = useState<string | undefined>();
+  const [recipeID, setRecipeID] = useState<string | null>(null);
   const [userData, setUserData] = useState<UserdataT | null>(null);
-  const [username, setUsername] = useState<string>("");
+  const [username, setUsername] = useState<string | null>(null);
   const [recipesData, setRecipesData] = useState<RecipeType[] | null>(null);
-  const [singleRecipeData, setSingleRecipeData] = useState<RecipeType | null>();
-  const [categoryData, setCategoryData] = useState<CategoryT[]>([]);
-  const [query, setQuery] = useState<string>("");
+  const [singleRecipeData] = useState<RecipeType | null>();
+  const [categoryData, setCategoryData] = useState<CategoryT[] | null>(null);
+  const [_, setQuery] = useState<string | null>(null);
   const [favorites, setFavorites] = useState<RecipeType[] | null>(null);
   const navigate = useNavigate();
   const [cookies, setCookies] = useCookies(["access_token", "username"]);
@@ -62,23 +67,38 @@ const GlobalState = ({ children }: GlobalStateProps) => {
     getUserFavoriteRecipe();
   }, [userData]);
 
-  const addFavorites = async (username: string, id: string) => {
-    await axios.put("http://localhost:3001/recipes/addfavorite", {
-      username: username,
-      id: id,
-    });
+  const addFavorites = async (username: string | null, id: string | null) => {
+    try {
+      if (username && id) {
+        await axios.put("http://localhost:3001/recipes/addfavorite", {
+          username: username,
+          id: id,
+        });
 
-    await getUserData(username);
+        await getUserData(username);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const removeFavorites = async (username: string, id: string) => {
-    await axios.delete("http://localhost:3001/recipes/removefavorite", {
-      data: {
-        username: username,
-        id: id,
-      },
-    });
-    await getUserData(username);
+  const removeFavorites = async (
+    username: string | null,
+    id: string | null,
+  ) => {
+    try {
+      if (username && id) {
+        await axios.delete("http://localhost:3001/recipes/removefavorite", {
+          data: {
+            username: username,
+            id: id,
+          },
+        });
+        await getUserData(username);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const getUserData = async (username: string) => {
@@ -143,15 +163,18 @@ const GlobalState = ({ children }: GlobalStateProps) => {
     }
   };
 
-  const getRecipeByCategory = async (category: string) => {
+  const getRecipeByCategory = async (
+    category: string,
+  ): Promise<RecipeType[] | null> => {
     try {
       const res = await axios.get(
         `http://localhost:3001/recipes/category?query=${category}`,
       );
-
-      return res.data;
+      const data = await res.data;
+      return data || null;
     } catch (error) {
       console.error(error);
+      return null;
     }
   };
 
@@ -188,24 +211,24 @@ const GlobalState = ({ children }: GlobalStateProps) => {
   }, [cookies]);
 
   const value = {
+    recipeID,
     userData,
     recipesData,
     username,
-    // setUsername,
-    // cookies,
-    // setCookies,
-    // categoryData,
-    // setRecipeID,
-    // singleRecipeData,
-    // setQuery,
+    setUsername,
+    cookies,
+    categoryData,
+    setRecipeID,
+    singleRecipeData,
+    setQuery,
     favorites,
-    // getRecipeByCategory,
-    // getRecipeByUser,
+    getRecipeByUser,
+    getRecipeByCategory,
     getSingleRecipe,
-    // getAllUserData,
-    // logOutUser,
-    // addFavorites,
-    // removeFavorites,
+    getAllUserData,
+    logOutUser,
+    addFavorites,
+    removeFavorites,
   };
 
   return (

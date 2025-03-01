@@ -14,8 +14,9 @@ const Recipes = ({ label, query }: RecipesProps) => {
     try {
       console.log(query);
       const data = await getRecipeByCategory(query);
-
-      setRecipesData(data.splice(0, 6));
+      if (data) {
+        setRecipesData(data.splice(0, 6));
+      }
     } catch (error) {
       console.error(error);
     }

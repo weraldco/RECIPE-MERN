@@ -9,7 +9,7 @@ import { GlobalContext } from "./context/RecipeContext";
 const RecipeCardFull = ({ recipe }: RecipeItemProps) => {
   const { cookies, addFavorites, removeFavorites, userData } =
     useContext(GlobalContext);
-  const username = cookies?.username;
+  const username = cookies?.username as string;
 
   const [isFavorite, setIsFavorite] = useState<boolean | undefined>(false);
 
