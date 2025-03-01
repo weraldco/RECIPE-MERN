@@ -13,42 +13,46 @@ import {
 } from "../../method/types";
 
 const defaultValue: GlobalContextT = {
-  // userData: undefined,
-  // recipesData: undefined,
+  userData: null,
+  recipesData: null,
   // username: undefined,
   // setUsername: () => undefined,
   // cookies: undefined,
   // categoryData: [],
   // setRecipeID: () => undefined,
-  // singleRecipeData: undefined,
+  singleRecipeData: null,
+  getRecipeByCategory: async () => null,
+  getAllUserData: async () => null,
   getSingleRecipe: async () => null,
   // setQuery: () => [],
-  // favorites: undefined,
-  // addFavorites: () => {},
-  // removeFavorites: () => {},
+  favorites: null,
+  addFavorites: async () => {},
+  removeFavorites: async () => {},
 };
 
 export const GlobalContext = createContext<GlobalContextT>(defaultValue);
 
 const GlobalState = ({ children }: GlobalStateProps) => {
   const [recipeID, setRecipeID] = useState<string | undefined>();
-  const [userData, setUserData] = useState<UserdataT>();
+  const [userData, setUserData] = useState<UserdataT | null>(null);
   const [username, setUsername] = useState<string>("");
-  const [recipesData, setRecipesData] = useState<RecipeType[]>([]);
-  const [singleRecipeData, setSingleRecipeData] = useState<RecipeType>();
+  const [recipesData, setRecipesData] = useState<RecipeType[] | null>(null);
+  const [singleRecipeData, setSingleRecipeData] = useState<RecipeType | null>();
   const [categoryData, setCategoryData] = useState<CategoryT[]>([]);
   const [query, setQuery] = useState<string>("");
-  const [favorites, setFavorites] = useState<RecipeType[] | undefined>([]);
+  const [favorites, setFavorites] = useState<RecipeType[] | null>(null);
   const navigate = useNavigate();
   const [cookies, setCookies] = useCookies(["access_token", "username"]);
 
   const getUserFavoriteRecipe = async () => {
     try {
-      setFavorites(
-        recipesData.filter((recipe) =>
-          userData?.favorite_recipes.includes(recipe._id),
-        ),
-      );
+      if (recipesData) {
+        setFavorites(
+          recipesData.filter((recipe) =>
+            userData?.favorite_recipes.includes(recipe._id),
+          ),
+        );
+      }
     } catch (error) {
       console.error(error);
     }
@@ -184,9 +188,9 @@ const GlobalState = ({ children }: GlobalStateProps) => {
   }, [cookies]);
 
   const value = {
-    // userData,
-    // recipesData,
-    // username,
+    userData,
+    recipesData,
+    username,
     // setUsername,
     // cookies,
     // setCookies,
@@ -194,7 +198,7 @@ const GlobalState = ({ children }: GlobalStateProps) => {
     // setRecipeID,
     // singleRecipeData,
     // setQuery,
-    // favorites,
+    favorites,
     // getRecipeByCategory,
     // getRecipeByUser,
     getSingleRecipe,
