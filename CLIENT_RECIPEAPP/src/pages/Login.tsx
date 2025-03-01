@@ -2,7 +2,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState<string>("");
@@ -15,10 +15,13 @@ const Login = () => {
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3001/auth/login", {
-        username,
-        password,
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/auth/login`,
+        {
+          username,
+          password,
+        },
+      );
       setSuccess("");
 
       if (response.status === 202) return setError(response.data.message);
@@ -35,8 +38,19 @@ const Login = () => {
   };
   return (
     <>
-      <div className="grid h-[90vh] place-content-center">
-        <h2 className="mb-2 text-2xl font-bold">Login</h2>
+      <div className="grid h-[90vh] place-content-center gap-4">
+        <div>
+          <h2 className="text-2xl font-bold">Login</h2>
+          <span className="text-sm">
+            Are you not already registered?{" "}
+            <Link
+              className="text-green-600 duration-200 hover:text-green-500 hover:underline"
+              to={`/registration`}
+            >
+              Sign-up here.
+            </Link>
+          </span>
+        </div>
         {error && <div className="text-red-500">{error}</div>}
         {success && <div className="text-green-500">{success}</div>}
         <form
@@ -46,7 +60,7 @@ const Login = () => {
         >
           <div className="grid w-[300px] items-center">
             <label className="text-sm text-gray-600" htmlFor="uname">
-              Your username:{" "}
+              Your username{" "}
             </label>
             <input
               className="rounded-lg bg-slate-200 p-2"
@@ -62,7 +76,7 @@ const Login = () => {
           </div>
           <div className="grid items-center">
             <label className="text-sm text-gray-600" htmlFor="pwd">
-              Your password:{" "}
+              Your password{" "}
             </label>
             <input
               className="col-span-2 rounded-lg bg-slate-200 p-2"

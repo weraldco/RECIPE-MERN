@@ -70,10 +70,13 @@ const GlobalState = ({ children }: GlobalStateProps) => {
   const addFavorites = async (username: string | null, id: string | null) => {
     try {
       if (username && id) {
-        await axios.put("http://localhost:3001/recipes/addfavorite", {
-          username: username,
-          id: id,
-        });
+        await axios.put(
+          `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/recipes/addfavorite`,
+          {
+            username: username,
+            id: id,
+          },
+        );
 
         await getUserData(username);
       }
@@ -88,12 +91,15 @@ const GlobalState = ({ children }: GlobalStateProps) => {
   ) => {
     try {
       if (username && id) {
-        await axios.delete("http://localhost:3001/recipes/removefavorite", {
-          data: {
-            username: username,
-            id: id,
+        await axios.delete(
+          `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/recipes/removefavorite`,
+          {
+            data: {
+              username: username,
+              id: id,
+            },
           },
-        });
+        );
         await getUserData(username);
       }
     } catch (error) {
@@ -104,7 +110,7 @@ const GlobalState = ({ children }: GlobalStateProps) => {
   const getUserData = async (username: string) => {
     try {
       const res = await axios.get(
-        `http://localhost:3001/auth/getuser?username=${username}`,
+        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/auth/getuser?username=${username}`,
       );
 
       if (res.status === 200) {
@@ -118,7 +124,7 @@ const GlobalState = ({ children }: GlobalStateProps) => {
   const getAllUserData = async (username: string) => {
     try {
       const res = await axios.get(
-        `http://localhost:3001/auth/getuser?username=${username}`,
+        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/auth/getuser?username=${username}`,
       );
 
       if (res.status === 200) {
@@ -131,7 +137,9 @@ const GlobalState = ({ children }: GlobalStateProps) => {
 
   const getAllRecipe = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/recipes/all");
+      const response = await axios.get(
+        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/recipes/all`,
+      );
       if (response.status === 200) {
         setRecipesData(response.data);
       }
@@ -142,7 +150,9 @@ const GlobalState = ({ children }: GlobalStateProps) => {
 
   const getAllCategories = async () => {
     try {
-      const categoryRes = await axios.get("http://localhost:3001/category/all");
+      const categoryRes = await axios.get(
+        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/category/all`,
+      );
       if (categoryRes.status === 200) {
         setCategoryData(categoryRes.data.categories);
       }
@@ -154,7 +164,7 @@ const GlobalState = ({ children }: GlobalStateProps) => {
   const getRecipeByUser = async (username: string) => {
     try {
       const res = await axios.get(
-        `http://localhost:3001/recipes/query?username=${username}`,
+        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/recipes/query?username=${username}`,
       );
 
       return res.data;
@@ -168,7 +178,7 @@ const GlobalState = ({ children }: GlobalStateProps) => {
   ): Promise<RecipeType[] | null> => {
     try {
       const res = await axios.get(
-        `http://localhost:3001/recipes/category?query=${category}`,
+        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/recipes/category?query=${category}`,
       );
       const data = await res.data;
       return data || null;
@@ -180,7 +190,9 @@ const GlobalState = ({ children }: GlobalStateProps) => {
 
   const getSingleRecipe = async (id: string): Promise<RecipeType | null> => {
     try {
-      const response = await axios.get(`http://localhost:3001/recipes/${id}`);
+      const response = await axios.get(
+        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/recipes/${id}`,
+      );
 
       const data = await response.data;
       return data || null;

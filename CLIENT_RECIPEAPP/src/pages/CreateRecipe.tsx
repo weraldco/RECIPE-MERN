@@ -37,7 +37,7 @@ export const CreateRecipe = () => {
       console.log(rawData);
 
       const response = await axios.post(
-        "http://localhost:3001/recipes/create",
+        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/recipes/create`,
         rawData,
       );
       if (response.status === 200) {

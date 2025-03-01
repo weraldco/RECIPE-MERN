@@ -1,9 +1,9 @@
-import axios from "axios";
-import { useState } from "react";
-import { useCookies } from "react-cookie";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useContext, useEffect, useState } from "react";
 import { HiHeart } from "react-icons/hi";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { RecipeType, UserdataT } from "../method/types";
+import { GlobalContext } from "./context/RecipeContext";
 
 type RecipeItemProps = {
   recipe: RecipeType;
@@ -11,34 +11,26 @@ type RecipeItemProps = {
 };
 
 const RecipeItem = ({ recipe, userdata }: RecipeItemProps) => {
-  const navigate = useNavigate();
-  const [cookies] = useCookies(["username"]);
-  const userName = cookies?.username;
+  const { cookies, addFavorites, removeFavorites } = useContext(GlobalContext);
+
+  const username = cookies?.username as string;
   const { _id, name, description, img_url, author } = recipe;
 
-  const [isFave, setFave] = useState(
-    () => userdata && userdata?.favorite_recipes.includes(_id),
-  );
+  const [isFavorite, setIsFavorite] = useState<boolean | undefined>(false);
 
-  const handleAddFavorite = async () => {
-    await axios.put("http://localhost:3001/recipes/addfavorite", {
-      username: userName,
-      id: _id,
-    });
-    navigate("/");
-    setFave((prev) => !prev);
+  const handleAddFavorite = () => {
+    addFavorites(username, _id);
   };
 
-  const handleRemoveFavorite = async () => {
-    await axios.delete("http://localhost:3001/recipes/removefavorite", {
-      data: {
-        username: userName,
-        id: _id,
-      },
-    });
-    navigate("/");
-    setFave((prev) => !prev);
+  const handleRemoveFavorite = () => {
+    removeFavorites(username, _id);
   };
+
+  useEffect(() => {
+    if (userdata) {
+      setIsFavorite(() => userdata.favorite_recipes.includes(_id as string));
+    }
+  }, [userdata]);
 
   return (
     <>
@@ -46,7 +38,7 @@ const RecipeItem = ({ recipe, userdata }: RecipeItemProps) => {
         <div className="relative">
           {cookies?.username && (
             <div>
-              {isFave ? (
+              {isFavorite ? (
                 <HiHeart
                   className="absolute right-1 top-1 text-4xl text-red-400 hover:text-gray-200 active:text-white"
                   onClick={handleRemoveFavorite}

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { FormEvent, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const Registration = () => {
   const [username, setUsername] = useState<string>("");
@@ -7,18 +8,31 @@ const Registration = () => {
   // const [rpassword, setRPassword] = useState<string>();
   const [success, setSuccess] = useState<string>();
   const [error, setError] = useState<string>();
+  const navigate = useNavigate();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event?.preventDefault();
     try {
-      await axios.post("http://localhost:3001/auth/register", {
-        username,
-        password,
-      });
-      setError("");
-      setSuccess("Successfully Register new account!");
-      setUsername("");
-      setPassword("");
+      if (username && password) {
+        await axios.post(
+          `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/auth/register`,
+          {
+            username,
+            password,
+          },
+        );
+        setError("");
+        setSuccess(
+          "Successfully Register new account! You will be redirected to login page in 3 secs.",
+        );
+        setUsername("");
+        setPassword("");
+        setTimeout(() => {
+          navigate("/login");
+        }, 3000);
+      } else {
+        setError("All fields are required..");
+      }
     } catch (err) {
       console.error(err);
       setSuccess("");
@@ -28,10 +42,23 @@ const Registration = () => {
 
   return (
     <>
-      <div className="grid h-[90vh] place-content-center">
-        <h2 className="mb-2 text-2xl font-bold">Registration</h2>
-        {error && <div className="text-red-500">{error}</div>}
-        {success && <div className="text-green-500">{success}</div>}
+      <div className="grid h-[90vh] place-content-center gap-4">
+        <div>
+          <h2 className="text-2xl font-bold">Registration</h2>
+          <span className="text-sm">
+            Already registered?{" "}
+            <Link
+              className="text-green-600 duration-200 hover:text-green-500 hover:underline"
+              to={`/login`}
+            >
+              Sign-in here
+            </Link>
+          </span>
+        </div>
+        <div className="w-[300px]">
+          {error && <div className="text-red-500">{error}</div>}
+          {success && <div className="text-green-500">{success}</div>}
+        </div>
         <form
           className="grid place-content-center gap-3"
           onSubmit={handleSubmit}
