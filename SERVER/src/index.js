@@ -13,7 +13,11 @@ const app = express();
 
 connectDB();
 app.use(express.json());
-app.use(cors());
+app.use(
+	cors({
+		origin: 'https://spoonful-recipes.vercel.app',
+	})
+);
 app.use('/auth', userRouter);
 app.use('/recipes', recipeRouter);
 app.use('/category', categoryRouter);
