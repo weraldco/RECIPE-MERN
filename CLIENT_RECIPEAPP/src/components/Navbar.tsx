@@ -4,7 +4,7 @@ import WideNavbar from "./Navbar/WideNavbar";
 
 const Navbar = () => {
   return (
-    <header className="sticky top-0 z-50 flex flex-col gap-2 bg-white p-2 py-2 text-[0.85em]">
+    <header className="sticky top-[-5px] z-50 flex flex-col gap-2 bg-white p-2 py-2 text-[0.85em]">
       <div>
         <WideNavbar />
       </div>
