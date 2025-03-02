@@ -4,8 +4,8 @@ import Recipes from "../components/Recipes";
 const Home = () => {
   return (
     <div className="grid w-full gap-4 px-0 md:px-10 xl:px-5">
-      <div className="relative mt-10 bg-blue-200">
-        <div className="absolute right-10 top-10 grid w-[400px] gap-5 md:w-[550px]">
+      <div className="relative mt-10">
+        <div className="absolute right-10 top-10 grid w-[300px] gap-5 md:w-[550px]">
           <h1 className="text-3xl font-bold text-white md:text-5xl">
             Discover Recipe <br />
             of World Causine
