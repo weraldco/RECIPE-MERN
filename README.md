@@ -8,3 +8,10 @@ This project is a recipe-sharing platform where users can share both unique and 
 Recently, while browsing through my GitHub, I came across the unfinished project and decided to pick it up again. I set out to challenge myself to complete it, and I’m really happy that I finally finished it!)
 
 ![image alt](https://github.com/weraldco/RECIPE-MERN/blob/master/spoonful-screenshot.png?raw=true)
+
+Tech Stack Use:
+- ReactJs
+- NodeJs
+- ExpressJs
+- MongoDB
+- TailwindCSS
